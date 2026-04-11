@@ -1,0 +1,430 @@
+<!DOCTYPE html>                
+<html lang="en">                
+<head>                
+<meta charset="UTF-8">                
+<meta name="viewport" content="width=device-width, initial-scale=1.0">                
+<title>Sequence of Return Risk | WeDA</title>                
+                
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>                
+                
+<style>                
+:root{                
+--primary:#2563eb;                
+--green:#16a34a;                
+--bg:#ffffff;                
+--text:#111827;                
+--card:#f8fafc;                
+}                
+                
+html{scroll-behavior:smooth;}                
+                
+body{                
+margin:0;                
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;                
+background:var(--bg);                
+color:var(--text);                
+}                
+                
+.header{                
+display:flex;                
+justify-content:space-between;                
+align-items:center;                
+padding:15px 20px;                
+border-bottom:1px solid #ddd;                
+}                
+                
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}                
+.tagline{font-size:12px;color:gray;}                
+.menu-btn{font-size:26px;cursor:pointer;}                
+                
+.overlay{                
+position:fixed;top:0;left:0;width:100%;height:100%;                
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);                
+display:none;z-index:5;                
+}                
+                
+.drawer{                
+position:fixed;top:0;right:-100%;width:70%;height:100%;                
+background:#fff;padding:20px;transition:0.3s;z-index:10;                
+}                
+                
+.drawer a{                
+display:block;                
+margin:15px 0;                
+text-decoration:none;                
+color:#111;                
+}                
+                
+.breadcrumb{                
+padding:10px 20px;                
+font-size:13px;                
+}                
+                
+.breadcrumb a{                
+color:var(--primary);                
+text-decoration:none;                
+}                
+                
+.container{                
+max-width:900px;                
+margin:auto;                
+padding:20px;                
+}                
+                
+.card{                
+background:var(--card);                
+padding:20px;                
+border-radius:12px;                
+margin-bottom:20px;                
+}                
+                
+input{                
+width:100%;                
+padding:12px;                
+margin:10px 0;                
+border-radius:8px;                
+border:1px solid #ccc;                
+}                
+                
+button{                
+width:100%;                
+padding:12px;                
+background:var(--primary);                
+color:white;                
+border:none;                
+border-radius:8px;                
+cursor:pointer;                
+}                
+                
+.result-box{                
+border:1px solid #e5e7eb;                
+border-radius:12px;                
+padding:20px;                
+text-align:center;                
+}                
+                
+.green{                
+color:var(--green);                
+font-size:26px;                
+font-weight:bold;                
+}                
+                
+.link-box a{                
+display:block;                
+padding:10px 0;                
+color:var(--primary);                
+text-decoration:none;                
+}                
+                
+.faq-box{                
+border:1px solid #ddd;                
+border-radius:10px;                
+margin-bottom:10px;                
+padding:12px;                
+cursor:pointer;                
+}                
+                
+.faq-answer{                
+display:none;                
+margin-top:8px;                
+color:#555;                
+line-height:1.6;                
+}                
+                
+.footer{                
+background:#111827;                
+color:white;                
+padding:30px;                
+display:flex;                
+justify-content:space-between;                
+flex-wrap:wrap;                
+gap:30px;                
+}                
+                
+.footer-column{                
+min-width:180px;                
+}                
+                
+.footer a{                
+display:block;                
+color:#9ca3af;                
+margin:6px 0;                
+text-decoration:none;                
+}                
+                
+.brand{font-size:20px;font-weight:bold;}                
+                
+.bottom{                
+text-align:center;                
+padding:10px;                
+background:#111827;                
+color:#9ca3af;                
+}                
+                
+.top-btn{                
+position:fixed;                
+bottom:20px;                
+right:20px;                
+width:55px;                
+height:55px;                
+border-radius:50%;                
+background:var(--primary);                
+color:white;                
+display:flex;                
+align-items:center;                
+justify-content:center;                
+font-size:26px;                
+font-weight:bold;                
+cursor:pointer;                
+}                
+</style>                
+</head>                
+                
+<body id="top">                
+                
+<div class="header">                
+<div>                
+<div class="logo">WeDA</div>                
+<div class="tagline">beyond the thought...</div>                
+</div>                
+<div class="menu-btn" onclick="openDrawer()">☰</div>                
+</div>                
+                
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>                
+                
+<div id="drawer" class="drawer">                
+<div onclick="closeDrawer()">✕ Close</div>                
+<a href="index.html">Home</a>                
+<a href="finance.html">Finance</a>                
+<a href="retirement-calculator.html">Retirement Calculator</a>                
+<a href="safe-withdrawal-rate.html">Safe Withdrawal Rate</a>                
+<a href="retirement-stress-test.html">Retirement Stress Test</a>                
+<a href="financial-health-system.html">Financial Health System</a>                
+</div>                
+                
+<div class="breadcrumb">                
+<a href="index.html">Home</a> >                
+<a href="finance.html">Finance</a> >                
+<a href="retirement-system.html">Retirement System</a> >                
+Sequence of Return Risk                
+</div>                
+                
+<div class="container">                
+                
+<h1>Sequence of Return Risk</h1>                
+<p>                
+Sequence of return risk refers to the danger that the order of investment returns in the early years of retirement can significantly impact your portfolio’s longevity. Even with the same average returns, early losses can deplete your savings faster than later losses. Understanding this concept is crucial for planning a sustainable retirement.                
+</p>                
+                
+<div class="card">                
+<label>Starting Portfolio (₹)</label>                
+<input id="portfolio" type="number" value="1000000">                
+                
+<label>Annual Withdrawal (₹)</label>                
+<input id="withdrawal" type="number" value="50000">                
+                
+<label>Expected Return (%)</label>                
+<input id="rate" type="number" value="8">                
+                
+<label>Years in Retirement</label>                
+<input id="years" type="number" value="25">                
+                
+<button onclick="calculate()">Simulate Risk</button>                
+</div>                
+                
+<div class="card result-box">                
+<p>Ending Portfolio After Retirement</p>                
+<div class="green">₹ <span id="total"></span></div>                
+</div>                
+                
+<div class="card">                
+<canvas id="lineChart"></canvas>                
+</div>                
+                
+<div class="card">                
+<h2>Understanding Sequence of Return Risk</h2>                
+<p>                
+The sequence in which your investment returns occur can dramatically influence the sustainability of your retirement corpus. Early losses may force withdrawals from a reduced base, while early gains provide a buffer against future market volatility.                
+</p>                
+</div>                
+                
+<div class="card">                
+<h2>Why It Matters</h2>                
+<p>                
+Ignoring sequence of return risk can jeopardize your financial independence. By simulating various scenarios, you can design withdrawal strategies and portfolio allocations that reduce the risk of running out of money in retirement.                
+</p>                
+</div>                
+                
+<div class="card link-box">                
+<h2>Related Tools</h2>                
+<a href="retirement-calculator.html">Retirement Calculator</a>                
+<a href="retirement-stress-test.html">Retirement Stress Test</a>                
+<a href="safe-withdrawal-rate.html">Safe Withdrawal Rate</a>                
+<a href="cagr-calculator.html">CAGR Calculator</a>                
+<a href="inflation-calculator.html">Inflation Calculator</a>                
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator</a>                
+<a href="real-return-calculator.html">Real Return Calculator</a>                
+</div>                
+                
+<div class="card link-box">                
+<h2>Explore More</h2>                
+<a href="what-is-xirr.html">XIRR Explained</a>                
+<a href="xirr-calculator.html">XIRR Calculator</a>                
+<a href="irr-calculator.html">IRR Calculator</a>                
+<a href="what-is-irr.html">What is IRR</a>                
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>                
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>                
+<a href="rolling-return-explained.html">Rolling Return Explained</a>                
+</div>                
+                
+<div class="card">                
+<h2>FAQs</h2>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+What is sequence of return risk?                
+<div class="faq-answer">                
+It is the risk that the order of your investment returns affects your portfolio sustainability, especially during early retirement years.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+How can I reduce this risk?                
+<div class="faq-answer">                
+Diversifying investments, maintaining a buffer, and planning flexible withdrawals can help mitigate sequence risk.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+Does market volatility increase this risk?                
+<div class="faq-answer">                
+Yes, higher market volatility in the early retirement period increases the impact of sequence risk.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+Is this only for retirees?                
+<div class="faq-answer">                
+No, anyone withdrawing from investments or living off a portfolio faces sequence risk, though it is most critical in retirement.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+Can safe withdrawal rates protect me?                
+<div class="faq-answer">                
+Safe withdrawal rates help, but they should be applied flexibly, accounting for market performance year by year.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+How often should I simulate scenarios?                
+<div class="faq-answer">                
+Ideally, at least annually or whenever major market changes occur.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+What happens if returns are negative in early years?                
+<div class="faq-answer">                
+Early negative returns can significantly reduce your corpus, highlighting the importance of conservative early withdrawal strategies.                
+</div>                
+</div>                
+                
+<div class="faq-box" onclick="toggleFAQ(this)">                
+Does this impact all retirement portfolios equally?                
+<div class="faq-answer">                
+The effect varies depending on asset allocation, withdrawal rate, and investment horizon. Personalized planning is key.                
+</div>                
+</div>                
+                
+</div>                
+                
+</div>                
+                
+<div class="footer">                
+<div>                
+<div class="brand">WeDA</div>                
+<div>beyond the thought...</div>                
+</div>                
+                
+<div>                
+<div class="footer-column">                
+<h3>Explore</h3>                
+<a href="index.html">WeDA's Home</a>                
+<a href="finance.html">Finance</a>                
+<a href="investment-system.html">Investment System</a>                
+<a href="loan-system.html">Loan System</a>                
+<a href="returns-system.html">Returns System</a>                
+<a href="inflation-system.html">Inflation System</a>                
+<a href="portfolio-system.html">Portfolio System</a>                
+<a href="tax-savings-system.html">Tax & Savings System</a>                
+<a href="retirement-system.html">Retirement System</a>                
+<a href="financial-health-system.html">Financial Health System</a>                
+</div>                
+                
+<div class="footer-column">                
+<h3>Company</h3>                
+<a href="about.html">About</a>                
+<a href="contact.html">Contact</a>                
+<a href="privacy-policy.html">Privacy Policy</a>                
+<a href="terms.html">Terms and Conditions</a>                
+<a href="disclaimer.html">Disclaimer</a>                
+</div>                
+</div>                
+                
+</div>                
+                
+<div class="bottom">                
+© WeDA • beyond the thought...                
+</div>                
+                
+<a href="#top" class="top-btn">⬆</a>                
+                
+<script>                
+history.scrollRestoration="manual";                
+window.onpageshow=function(){window.scrollTo(0,0);};                
+                
+function openDrawer(){                
+document.getElementById("drawer").style.right="0";                
+document.getElementById("overlay").style.display="block";                
+}                
+                
+function closeDrawer(){                
+document.getElementById("drawer").style.right="-100%";                
+document.getElementById("overlay").style.display="none";                
+}                
+                
+function toggleFAQ(el){                
+let ans=el.querySelector(".faq-answer");                
+ans.style.display=ans.style.display==="block"?"none":"block";                
+}                
+                
+let line;                
+                
+function calculate(){                
+let portfolio=document.getElementById("portfolio").value;                
+let withdrawal=document.getElementById("withdrawal").value;                
+let rate=document.getElementById("rate").value/100;                
+let years=document.getElementById("years").value;                
+                
+let data=[];                
+let val=parseFloat(portfolio);                
+                
+for(let i=1;i<=years;i++){                
+val = (val - withdrawal) * (1 + rate);                
+data.push(Math.round(val));                
+}                
+                
+document.getElementById("total").innerText=Math.round(val).toLocaleString('en-IN');                
+                
+if(line) line.destroy();                
+line=new Chart(document.getElementById("lineChart"),{                
+type:"line",                
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Portfolio Value",data:data}]}                
+});                
+}                
+                
+calculate();                
+</script>                
+                
+</body>                
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment System | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:15px;
+}
+
+.card-link{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+color:var(--primary);
+display:block;
+transition:0.3s;
+}
+
+.card-link:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+Investment System
+</div>
+
+<div class="container">
+
+<h1>Investment System</h1>
+<p>
+The Investment System within WeDA is designed to help individuals build, manage, and optimize wealth through structured financial planning tools and interconnected learning paths.
+</p>
+
+<!-- TOOLS -->
+<div class="grid">
+
+<a href="sip-calculator.html" class="card-link">SIP Calculator</a>
+
+<a href="lumpsum-calculator.html" class="card-link">Lumpsum Calculator</a>
+
+<a href="sip-goal-calculator.html" class="card-link">SIP Goal Calculator</a>
+
+<a href="step-up-sip-calculator.html" class="card-link">Step-up SIP Calculator</a>
+
+<a href="sip-duration-calculator.html" class="card-link">SIP Duration Calculator</a>
+
+<a href="what-is-sip.html" class="card-link">What is SIP</a>
+
+<a href="sip-vs-lumpsum.html" class="card-link">SIP vs Lumpsum</a>
+
+</div>
+
+<!-- THEORY -->
+<div class="card">
+<h2>Understanding the Investment System</h2>
+<p>
+Investment is not just about putting money into assets. It is a structured process that involves planning, consistency, and long-term decision-making. The Investment System connects different tools and knowledge pages so that each decision is informed and aligned with financial goals.
+</p>
+
+<p>
+Rather than using isolated calculators, this system ensures that every step—from understanding SIP to comparing it with lumpsum investments—is interconnected. This helps users move from learning to execution seamlessly.
+</p>
+</div>
+
+<div class="card">
+<h2>How These Tools Connect</h2>
+<p>
+The journey typically starts with understanding what a Systematic Investment Plan (SIP) is. Once the concept is clear, users can explore calculators to estimate returns, plan goals, and adjust investment strategies using step-up or duration-based approaches.
+</p>
+
+<p>
+Lumpsum calculators and comparison pages further expand decision-making by providing alternatives. This interconnected structure ensures that no page stands alone and every tool contributes to a larger financial planning system.
+</p>
+</div>
+
+<div class="card">
+<h2>Why Structure Matters</h2>
+<p>
+Unstructured investing often leads to inconsistent decisions and missed opportunities. A system-based approach ensures clarity, discipline, and long-term growth. By following a structured investment path, users can avoid confusion and make confident financial decisions.
+</p>
+
+<p>
+This system is built to scale with your financial journey, allowing you to start simple and gradually move towards advanced planning tools and strategies.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions </a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

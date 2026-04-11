@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FD Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.7;}
+
+.link-box a{
+display:block;padding:10px 0;color:var(--primary);text-decoration:none;
+}
+
+.faq-box{
+border:1px solid #ddd;border-radius:10px;margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;line-height:1.7;}
+
+.footer{
+background:#111827;color:white;padding:30px;
+display:flex;justify-content:space-between;
+}
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}
+.brand{font-size:20px;font-weight:bold;}
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}
+
+.top-btn{
+position:fixed;bottom:20px;right:20px;
+width:55px;height:55px;border-radius:50%;
+background:var(--primary);color:white;
+display:flex;align-items:center;justify-content:center;
+font-size:30px;font-weight:900;cursor:pointer;
+}
+
+/* ENDLESS BLUE STRAP ABOVE H1 */
+.h1-strip {
+background: var(--primary);
+color: white;
+padding: 14px 20px;
+font-size: 22px;
+font-weight: bold;
+margin: -20px -20px 20px -20px; /* remove gaps to edges */
+}
+</style>
+</head>
+
+<body id="top">
+
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="epf-calculator.html">EPF Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+<a href="ppf-vs-fd.html">PPF vs FD</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+</div>
+
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="tax-savings-system.html">Tax & Savings System</a> >
+FD Calculator
+</div>
+
+<div class="container">
+
+
+<h1 class="h1-strip">FD Calculator</h1>
+
+<p>
+A Fixed Deposit (FD) is one of the most stable and predictable investment instruments available. Use this calculator to estimate the maturity value of your deposit and understand how your money grows over time through fixed interest accumulation.
+</p>
+
+<div class="card">
+<label>Investment Amount (₹)</label>
+<input id="amount" type="number" value="100000">
+
+<label>Interest Rate (%)</label>
+<input id="rate" type="number" value="7">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="5">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<div class="card result-box">
+<p>Maturity Value</p>
+<div class="green">₹ <span id="total"></span></div>
+<p>Interest Earned: ₹ <span id="interest"></span></p>
+</div>
+
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<div class="card section">
+<h2>What is Fixed Deposit?</h2>
+<p>
+A Fixed Deposit (FD) is a financial instrument offered by banks and financial institutions where you invest a lump sum amount for a fixed tenure at a predetermined interest rate. Unlike market-linked investments, FDs provide assured returns, making them highly reliable for risk-averse investors.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why Choose Fixed Deposit?</h2>
+<p>
+Fixed Deposits are widely preferred for their stability, predictability, and safety. They are ideal for individuals who want to protect their capital while earning a steady return. FDs are also useful for short-term financial planning, emergency funds, and diversification of an investment portfolio.
+</p>
+<p>
+Additionally, FDs offer flexible tenure options, allowing investors to align their investments with specific financial goals such as education, travel, or future expenses.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance Hub</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+<a href="ppf-vs-fd.html">PPF vs FD</a>
+<a href="epf-calculator.html">EPF Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth</a>
+</div>
+
+<div class="card">
+<h2>FAQs</h2>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is Fixed Deposit a safe investment option?
+<div class="faq-answer">
+Yes, Fixed Deposits are considered one of the safest investment options because they are not affected by market fluctuations. Most banks also provide insurance coverage up to a certain limit, adding an extra layer of security for investors.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I withdraw my FD before maturity?
+<div class="faq-answer">
+Yes, premature withdrawal is allowed, but it usually comes with a penalty in the form of reduced interest. The exact penalty depends on the bank or financial institution where the FD is held.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is FD interest calculated?
+<div class="faq-answer">
+FD interest is typically calculated using compound interest, depending on the compounding frequency (quarterly, half-yearly, or annually). This allows your interest to earn additional interest over time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is FD better than SIP for investment?
+<div class="faq-answer">
+FD and SIP serve different purposes. FD offers safety and guaranteed returns, while SIP invests in market-linked instruments with higher return potential but also higher risk. The choice depends on your financial goals and risk appetite.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Do FDs help in tax saving?
+<div class="faq-answer">
+Certain tax-saving FDs come with a lock-in period of 5 years and are eligible for deductions under Section 80C. However, the interest earned is taxable as per your income slab.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What tenure should I choose for FD?
+<div class="faq-answer">
+The ideal tenure depends on your financial goals. Short-term FDs are suitable for liquidity needs, while long-term FDs help in better compounding and higher returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I open multiple FDs?
+<div class="faq-answer">
+Yes, you can open multiple FDs with different amounts and tenures. This strategy helps in better financial planning and ensures liquidity at different intervals.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation affect FD returns?
+<div class="faq-answer">
+Yes, inflation can reduce the real returns from an FD. Even though the returns are fixed, rising inflation can decrease the purchasing power of your earnings over time.
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let P=document.getElementById("amount").value;
+let r=document.getElementById("rate").value/100;
+let t=document.getElementById("time").value;
+
+let total=P*Math.pow((1+r),t);
+let interest=total-P;
+
+document.getElementById("total").innerText=Math.round(total).toLocaleString('en-IN');
+document.getElementById("interest").innerText=Math.round(interest).toLocaleString('en-IN');
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Invested","Interest"],datasets:[{data:[P,interest]}]}
+});
+
+let data=[];
+for(let i=1;i<=t;i++){
+data.push(P*Math.pow((1+r),i));
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

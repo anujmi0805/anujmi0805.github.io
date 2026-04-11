@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Health System | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:15px;
+}
+
+/* CARD LINK */
+.card-link{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+color:var(--primary);
+display:block;
+transition:0.3s;
+}
+
+.card-link:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+Financial Health System
+</div>
+
+<div class="container">
+
+<h1>Financial Health System</h1>
+<p>
+The Financial Health System is designed to give you a clear, structured view of your overall financial position. Instead of focusing only on investments or loans, this system helps you understand where you stand today and how stable your financial foundation is.
+</p>
+
+<!-- TOOLS -->
+<div class="grid">
+
+<a href="net-worth-calculator.html" class="card-link">Net Worth Calculator</a>
+
+<a href="financial-health-score.html" class="card-link">Financial Health Score</a>
+
+<a href="emergency-fund-calculator.html" class="card-link">Emergency Fund Calculator</a>
+
+</div>
+
+<!-- THEORY -->
+<div class="card">
+<h2>What is Financial Health?</h2>
+<p>
+Financial health is not just about how much you earn or invest. It reflects your overall financial stability, including your savings, liabilities, emergency preparedness, and ability to handle unexpected situations.
+</p>
+
+<p>
+A person with high income but poor savings discipline may still have weak financial health, while someone with balanced savings, low debt, and a clear plan may be financially strong even with moderate income.
+</p>
+</div>
+
+<div class="card">
+<h2>How These Tools Work Together</h2>
+<p>
+The Financial Health System connects multiple tools to give you a complete picture. The Net Worth Calculator helps you understand the difference between what you own and what you owe. The Financial Health Score evaluates your financial condition based on multiple factors like savings, debt, and planning.
+</p>
+
+<p>
+The Emergency Fund Calculator ensures that you are prepared for uncertainties. Together, these tools create a system where each insight supports better financial decisions.
+</p>
+</div>
+
+<div class="card">
+<h2>Why This System Matters</h2>
+<p>
+Many people focus only on earning and investing, but ignore financial stability. Without a strong base, even good investments can fail during unexpected events. This system ensures that your financial foundation is strong before moving toward growth.
+</p>
+
+<p>
+It helps you identify gaps, improve discipline, and build a safety net that supports long-term financial success.
+</p>
+</div>
+
+<div class="card">
+<h2>Building a Strong Financial Base</h2>
+<p>
+A strong financial base starts with clarity. Knowing your net worth, maintaining an adequate emergency fund, and regularly evaluating your financial health are essential steps toward stability.
+</p>
+
+<p>
+Once your foundation is strong, you can confidently move toward advanced systems like investing, retirement planning, and wealth creation. This structured approach ensures long-term sustainability and reduces financial stress.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions </a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

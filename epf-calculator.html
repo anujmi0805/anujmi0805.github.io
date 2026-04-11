@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPF Calculator | WeDA</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+.title-strip{
+background:var(--primary);
+color:white;
+padding:10px 20px;
+font-size:22px;
+font-weight:bold;
+margin-bottom:20px;
+}
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+.section p{
+line-height:1.8;
+color:#374151;
+}
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+.footer-column{
+min-width:150px;
+}
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+.brand{
+font-size:20px;
+font-weight:bold;
+}
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+<a href="ppf-vs-fd.html">PPF vs FD</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="tax-savings-system.html">Tax & Savings System</a> >
+EPF Calculator
+</div>
+
+<!-- H1 STRIP -->
+<div class="title-strip">EPF Calculator</div>
+
+<div class="container">
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Salary (₹)</label>
+<input id="salary" type="number" value="30000">
+<label>EPF Contribution (%)</label>
+<input id="rate" type="number" value="12">
+<label>Years of Service</label>
+<input id="time" type="number" value="20">
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Total EPF Value</p>
+<div class="green">₹ <span id="total"></span></div>
+<p>Interest Earned: ₹ <span id="interest"></span></p>
+</div>
+
+<!-- CHARTS -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- DESCRIPTIONS -->
+<div class="card section">
+<h2>What is EPF?</h2>
+<p>Employee Provident Fund (EPF) is a long-term retirement savings scheme primarily designed for salaried employees. Both the employee and employer contribute a fixed percentage of the salary every month, which accumulates over time with interest declared by the government.</p>
+<p>It acts as a disciplined savings mechanism that ensures financial security after retirement, while also allowing partial withdrawals for specific needs during employment.</p>
+</div>
+
+<div class="card section">
+<h2>Why EPF Matters</h2>
+<p>EPF plays a crucial role in building a retirement corpus without requiring active investment decisions. Since contributions happen automatically from salary, it ensures consistency and financial discipline.</p>
+<p>Additionally, the power of compounding combined with employer contribution makes EPF one of the most efficient low-risk long-term savings tools available to salaried individuals.</p>
+</div>
+
+<!-- RELATED TOOLS -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+</div>
+
+<!-- EXPLORE MORE -->
+<div class="card link-box">
+<h2>Explore</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is EPF contribution and how is it calculated?
+<div class="faq-answer">
+EPF contribution is a fixed percentage of your basic salary and dearness allowance, contributed by both employee and employer. Typically, each contributes around 12%, which accumulates monthly and earns annual interest declared by the government.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is EPF completely tax free?
+<div class="faq-answer">
+EPF enjoys tax benefits under the EEE category (Exempt-Exempt-Exempt), meaning contributions, interest earned, and maturity amount are tax-free, provided certain conditions like minimum service period are fulfilled.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I withdraw EPF before retirement?
+<div class="faq-answer">
+Yes, partial withdrawals are allowed for specific purposes such as medical emergencies, home purchase, or education. However, full withdrawal is typically allowed only after retirement or under specific conditions.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is EPF different from PPF?
+<div class="faq-answer">
+EPF is linked to employment and includes employer contribution, whereas PPF is a voluntary investment scheme open to all individuals. EPF is salary-based, while PPF is self-funded.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the EPF interest rate and who decides it?
+<div class="faq-answer">
+The EPF interest rate is declared annually by the Employees' Provident Fund Organisation (EPFO) and approved by the government. It usually remains stable and competitive compared to other fixed-income instruments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is EPF alone sufficient for retirement planning?
+<div class="faq-answer">
+While EPF provides a strong foundation, relying solely on it may not be enough for long-term financial goals. Combining EPF with investments like SIPs or mutual funds can create a more balanced retirement strategy.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I increase my EPF contribution voluntarily?
+<div class="faq-answer">
+Yes, through the Voluntary Provident Fund (VPF), employees can contribute more than the mandatory limit. This additional contribution earns the same interest rate as EPF.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens to EPF when I change jobs?
+<div class="faq-answer">
+When you change jobs, your EPF account can be transferred to the new employer. This ensures continuity of your savings and avoids unnecessary withdrawals that may affect long-term growth.
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions </a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let salary=document.getElementById("salary").value;
+let rate=document.getElementById("rate").value/100;
+let years=document.getElementById("time").value;
+
+let yearly=salary*12*rate*2;
+let total=0;
+
+for(let i=1;i<=years;i++){
+total=(total+yearly)*1.08;
+}
+
+let invested=yearly*years;
+let interest=total-invested;
+
+document.getElementById("total").innerText=Math.round(total).toLocaleString('en-IN');
+document.getElementById("interest").innerText=Math.round(interest).toLocaleString('en-IN');
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Invested","Interest"],datasets:[{data:[invested,interest]}]}
+});
+
+let data=[];
+let val=0;
+for(let i=1;i<=years;i++){
+val=(val+yearly)*1.08;
+data.push(val);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Knowledge | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+gap:15px;
+}
+
+/* CARD LINK */
+.card-link{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+color:var(--primary);
+display:block;
+transition:0.3s;
+}
+
+.card-link:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+Investment Knowledge
+</div>
+
+<div class="container">
+
+<h1>Investment Knowledge</h1>
+<p>
+Simple financial rules and concepts that help you understand growth, time, and decision-making in investing.
+</p>
+
+<!-- KNOWLEDGE LINKS -->
+<div class="grid">
+
+<a href="rule-of-72.html" class="card-link">Rule of 72</a>
+
+<a href="rule-of-114.html" class="card-link">Rule of 114</a>
+
+<a href="rule-of-144.html" class="card-link">Rule of 144</a>
+
+<a href="cost-of-delay.html" class="card-link">Cost of Delay</a>
+
+</div>
+
+<!-- THEORY -->
+<div class="card">
+<h2>Why These Simple Rules Matter</h2>
+<p>
+In investing, not every decision needs complex calculations. Some of the most powerful insights come from simple rules that quickly help you estimate outcomes and understand long-term effects.
+</p>
+
+<p>
+These rules act as mental shortcuts. They help you make faster decisions without losing clarity, especially when comparing investment options or understanding time-based growth.
+</p>
+</div>
+
+<div class="card">
+<h2>Understanding Time and Growth</h2>
+<p>
+Most financial success depends on two things: time and consistency. These knowledge tools are designed to highlight how money grows over time and how delays or wrong decisions can impact your financial journey.
+</p>
+
+<p>
+Whether it's estimating how fast your money doubles or understanding the cost of waiting, these concepts provide clarity without overwhelming complexity.
+</p>
+</div>
+
+<div class="card">
+<h2>Where to Use These Concepts</h2>
+<p>
+You can use these rules while planning investments, comparing returns, or simply building financial awareness. They are especially useful when you need quick approximations without detailed calculations.
+</p>
+
+<p>
+These concepts are not replacements for calculators but serve as guiding principles that support better financial thinking.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div class="footer-column">
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div class="footer-column">
+<h4>Explore</h4>
+<a href="finance.html">Finance</a>
+<a href="#">Health</a>
+<a href="#">Education</a>
+</div>
+
+<div class="footer-column">
+<h4>Company</h4>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

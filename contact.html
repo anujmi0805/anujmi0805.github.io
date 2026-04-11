@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+line-height:1.8;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+Contact
+</div>
+
+<div class="container">
+
+<h1>Contact WeDA</h1>
+<p>
+We’re always open to feedback, suggestions, and collaboration ideas. Whether you have a question about our tools, want to report an issue, or simply wish to connect, feel free to reach out.
+</p>
+
+<!-- CONTACT INFO -->
+<div class="card">
+<h2>Get in Touch</h2>
+<p>
+For general inquiries, feedback, or support:
+</p>
+<p><strong>Email:</strong> support.weda@gmail.com</p>
+
+<p>
+We aim to respond within a reasonable time frame depending on the nature of the query.
+</p>
+</div>
+
+<!-- SUPPORT -->
+<div class="card">
+<h2>Support & Feedback</h2>
+<p>
+Your feedback plays an important role in improving WeDA. If you encounter any issue in calculations, data representation, or navigation, please report it.
+</p>
+<p>
+We continuously work on enhancing accuracy, usability, and system-level clarity across all sectors.
+</p>
+</div>
+
+<!-- COLLAB -->
+<div class="card">
+<h2>Collaboration & Opportunities</h2>
+<p>
+WeDA is evolving into a multi-sector platform covering finance, education, health, utilities, and more. We are open to relevant collaborations, partnerships, and integrations that align with structured, user-focused digital systems.
+</p>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div class="footer-column">
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div class="footer-column">
+<h4>Explore</h4>
+<a href="finance.html">Finance</a>
+<a href="#">Health</a>
+<a href="#">Education</a>
+</div>
+
+<div class="footer-column">
+<h4>Company</h4>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy</a>
+<a href="contact.html">Contact</a>
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Eligibility Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section h2{margin-bottom:10px;}
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="what-is-emi.html">What is EMI</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="loan-system.html">Loan System</a> >
+Loan Eligibility Calculator
+</div>
+
+<div class="container">
+
+<h1>Loan Eligibility Calculator</h1>
+<p>Plan your financial future with confidence. This calculator estimates the maximum loan you are eligible for, considering your income, monthly expenses, interest rate, and loan tenure. It helps you make informed borrowing decisions without overburdening yourself financially.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Income (₹)</label>
+<input id="income" type="number" value="50000">
+
+<label>Monthly Expenses (₹)</label>
+<input id="expenses" type="number" value="20000">
+
+<label>Interest Rate (%)</label>
+<input id="rate" type="number" value="10">
+
+<label>Loan Tenure (Years)</label>
+<input id="time" type="number" value="10">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Eligible Loan Amount</p>
+<div class="green">₹ <span id="loan"></span></div>
+<p>Approx EMI: ₹ <span id="emi"></span></p>
+</div>
+
+<!-- PIE -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<!-- LINE -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>What is Loan Eligibility?</h2>
+<p>
+Loan eligibility is a measure used by lenders to determine the maximum amount you can borrow safely. It is calculated based on your income, current expenses, and repayment capacity, ensuring you can repay without financial strain.
+</p>
+</div>
+
+<div class="card section">
+<h2>How It Works</h2>
+<p>
+Lenders generally consider 40–50% of your disposable income for EMIs. By entering your monthly income, expenses, interest rate, and loan tenure, this calculator gives a realistic estimate of your borrowing limit, helping you plan effectively.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why It Matters</h2>
+<p>
+Knowing your loan eligibility prevents over-borrowing, reduces financial stress, and enables you to negotiate better terms with lenders. It is an essential step in personal financial planning and responsible borrowing.
+</p>
+</div>
+
+<div class="card section">
+<h2>Example Scenario</h2>
+<p>
+For instance, if you earn ₹50,000 per month and spend ₹20,000, the calculator considers your available ₹30,000 and applies lending guidelines to determine the loan amount you can safely manage, along with estimated EMIs.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment</a>
+<a href="what-is-emi.html">What is EMI</a>
+<a href="what-is-inflation.html">What is Inflation</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="loan-system.html">Loan System</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More Tools</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What percentage of my income should go to EMI?
+<div class="faq-answer">
+Financial experts recommend keeping your total EMI obligations below 40–50% of your monthly income. This ensures you maintain a healthy cash flow for other essential expenses and savings.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I increase my loan eligibility?
+<div class="faq-answer">
+Yes, by increasing your income, reducing monthly expenses, or opting for a longer tenure. Each factor affects the lender's assessment and can improve your eligibility.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Do lenders consider my monthly expenses?
+<div class="faq-answer">
+Absolutely. Lenders evaluate your existing financial commitments such as rent, bills, and other EMIs to determine the amount you can comfortably repay.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens if I miss an EMI?
+<div class="faq-answer">
+Missing EMIs can affect your credit score and may result in late fees or penalties. Always plan your loan tenure carefully to avoid defaults.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does a higher interest rate reduce eligibility?
+<div class="faq-answer">
+Yes, a higher interest rate increases your EMI burden, reducing the loan amount you are eligible for, even if your income remains the same.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can multiple loans affect my eligibility?
+<div class="faq-answer">
+Yes, if you already have other active loans, lenders consider total obligations, which can reduce the eligibility for additional borrowing.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How can I use this calculator effectively?
+<div class="faq-answer">
+Enter your accurate income, expenses, interest rate, and tenure. Review the results to make informed decisions about loan planning and negotiations with banks.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is eligibility same for all lenders?
+<div class="faq-answer">
+No, each lender has specific guidelines. This calculator provides an estimate based on general lending norms. Always confirm with your preferred lender.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let income=document.getElementById("income").value;
+let expenses=document.getElementById("expenses").value;
+let r=document.getElementById("rate").value/100/12;
+let n=document.getElementById("time").value*12;
+
+let available=income-expenses;
+let emi=available*0.5;
+
+let loan=emi*((Math.pow(1+r,n)-1)/(r*Math.pow(1+r,n)));
+
+document.getElementById("loan").innerText=Math.round(loan).toLocaleString('en-IN');
+document.getElementById("emi").innerText=Math.round(emi).toLocaleString('en-IN');
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Expenses","Available"],datasets:[{data:[expenses,available]}]}
+});
+
+let data=[];
+let balance=loan;
+for(let i=1;i<=n;i++){
+balance = balance*(1+r) - emi;
+data.push(balance>0?balance:0);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Loan Balance",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>    
+<html lang="en">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>PPF Calculator | WeDA</title>    
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+
+<style>    
+:root{    
+--primary:#2563eb;    
+--green:#16a34a;    
+--bg:#ffffff;    
+--text:#111827;    
+--card:#f8fafc;    
+}    
+
+html{scroll-behavior:smooth;}    
+
+body{    
+margin:0;    
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;    
+background:var(--bg);    
+color:var(--text);    
+}    
+
+.header{    
+display:flex;    
+justify-content:space-between;    
+align-items:center;    
+padding:15px 20px;    
+border-bottom:1px solid #ddd;    
+}    
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}    
+.tagline{font-size:12px;color:gray;}    
+.menu-btn{font-size:26px;cursor:pointer;}    
+
+.overlay{    
+position:fixed;top:0;left:0;width:100%;height:100%;    
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);    
+display:none;z-index:5;    
+}    
+
+.drawer{    
+position:fixed;top:0;right:-100%;width:70%;height:100%;    
+background:#fff;padding:20px;transition:0.3s;z-index:10;    
+}    
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}    
+.close-btn{font-size:24px;cursor:pointer;}    
+
+.breadcrumb{padding:10px 20px;font-size:13px;}    
+.breadcrumb a{color:var(--primary);text-decoration:none;}    
+
+.container{max-width:900px;margin:auto;padding:20px;}    
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}    
+
+input{    
+width:100%;padding:12px;margin:10px 0;    
+border-radius:8px;border:1px solid #ccc;    
+}    
+
+button{    
+width:100%;padding:12px;background:var(--primary);    
+color:white;border:none;border-radius:8px;cursor:pointer;    
+}    
+
+.result-box{    
+border:1px solid #e5e7eb;border-radius:12px;    
+padding:20px;text-align:center;    
+}    
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}    
+
+.section p{color:#374151;line-height:1.7;}    
+
+.link-box a{    
+display:block;padding:10px 0;color:var(--primary);text-decoration:none;    
+}    
+
+.faq-box{    
+border:1px solid #ddd;border-radius:10px;margin-bottom:10px;padding:12px;cursor:pointer;    
+}    
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}    
+
+.footer{    
+background:#111827;color:white;padding:30px;    
+display:flex;justify-content:space-between;    
+}    
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}    
+.brand{font-size:20px;font-weight:bold;}    
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}    
+
+.top-btn{    
+position:fixed;bottom:20px;right:20px;    
+width:55px;height:55px;border-radius:50%;    
+background:var(--primary);color:white;    
+display:flex;align-items:center;justify-content:center;    
+font-size:30px;font-weight:900;cursor:pointer;    
+}    
+</style>    
+</head>    
+
+<body id="top">    
+
+<!-- HEADER -->    
+<div class="header">    
+<div>    
+<div class="logo">WeDA</div>    
+<div class="tagline">beyond the thought...</div>    
+</div>    
+<div class="menu-btn" onclick="openDrawer()">☰</div>    
+</div>    
+
+<!-- DRAWER -->    
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>    
+
+<div id="drawer" class="drawer">    
+<div class="close-btn" onclick="closeDrawer()">✕</div>    
+<a href="index.html">Home</a>    
+<a href="finance.html">Finance</a>    
+<a href="fd-calculator.html">FD Calculator</a>    
+<a href="rd-calculator.html">RD Calculator</a>    
+<a href="epf-calculator.html">EPF Calculator</a>    
+<a href="fd-vs-rd.html">FD vs RD</a>    
+<a href="ppf-vs-fd.html">PPF vs FD</a>    
+<a href="epf-vs-ppf.html">EPF vs PPF</a>    
+</div>    
+
+<!-- BREADCRUMB -->    
+<div class="breadcrumb">    
+<a href="index.html">Home</a> >    
+<a href="finance.html">Finance</a> >    
+<a href="tax-savings-system.html">Tax & Savings System</a> >    
+PPF Calculator    
+</div>    
+
+<div class="container">    
+
+<h1>PPF Calculator</h1>    
+<p>Plan your long-term savings efficiently. Our PPF Calculator helps you estimate future returns on your Public Provident Fund, factoring interest rates, annual contributions, and investment duration. It is designed for both new and experienced investors looking for a secure, tax-free growth avenue.</p>    
+
+<!-- INPUT -->    
+<div class="card">    
+<label>Yearly Investment (₹)</label>    
+<input id="amount" type="number" value="150000">    
+
+<label>Interest Rate (%)</label>    
+<input id="rate" type="number" value="7.1">    
+
+<label>Time (Years)</label>    
+<input id="time" type="number" value="15">    
+
+<button onclick="calculate()">Calculate</button>    
+</div>    
+
+<!-- RESULT -->    
+<div class="card result-box">    
+<p>Total Value</p>    
+<div class="green">₹ <span id="total"></span></div>    
+<p>Interest Earned: ₹ <span id="interest"></span></p>    
+</div>    
+
+<!-- PIE -->    
+<div class="card">    
+<canvas id="pieChart"></canvas>    
+</div>    
+
+<!-- LINE -->    
+<div class="card">    
+<canvas id="lineChart"></canvas>    
+</div>    
+
+<!-- CONTENT -->    
+<div class="card section">    
+<h2>What is PPF?</h2>    
+<p>PPF (Public Provident Fund) is a secure government-backed investment scheme that encourages disciplined savings. It offers attractive tax-free interest rates and is ideal for individuals seeking a long-term, safe investment option to accumulate a substantial corpus over time.</p>    
+</div>    
+
+<div class="card section">    
+<h2>Why PPF Matters</h2>    
+<p>PPF allows investors to grow their wealth securely, while enjoying tax benefits under Section 80C. It is a perfect option for risk-averse individuals who value steady growth, financial discipline, and long-term financial planning.</p>    
+</div>    
+
+<!-- RELATED -->    
+<div class="card link-box">    
+<h2>Related Tools</h2>    
+<a href="fd-calculator.html">FD Calculator</a>    
+<a href="rd-calculator.html">RD Calculator</a>    
+<a href="sip-calculator.html">SIP Calculator</a>    
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>    
+<a href="cagr-calculator.html">CAGR Calculator</a>    
+<a href="xirr-calculator.html">XIRR Calculator</a>    
+<a href="inflation-calculator.html">Inflation Calculator</a>    
+</div>    
+
+<!-- EXPLORE -->    
+<div class="card link-box">    
+<h2>Explore More</h2>    
+<a href="fd-calculator.html">FD Calculator </a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+</div>    
+
+<!-- FAQ -->    
+<div class="card">    
+<h2>FAQs</h2>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Is PPF completely tax-free?    
+<div class="faq-answer">    
+Yes, contributions, interest, and maturity proceeds are fully tax-exempt under the EEE category, offering high efficiency for long-term savings.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+What is the PPF lock-in period?    
+<div class="faq-answer">    
+PPF accounts have a standard lock-in of 15 years, encouraging disciplined long-term wealth accumulation.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Can I make partial withdrawals?    
+<div class="faq-answer">    
+Partial withdrawals are allowed from the 7th financial year onward under specific conditions, providing some liquidity while maintaining growth.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Can I extend my PPF account after maturity?    
+<div class="faq-answer">    
+Yes, extensions are possible in blocks of 5 years beyond the initial 15-year term to continue earning tax-free returns.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Is there a maximum yearly contribution?    
+<div class="faq-answer">    
+The current maximum contribution is ₹1.5 lakh per financial year, allowing careful planning of your investments.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Can a minor open a PPF account?    
+<div class="faq-answer">    
+Yes, a parent or guardian can open and manage a PPF account for a minor, promoting early financial literacy and planning.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Does the interest rate change every year?    
+<div class="faq-answer">    
+Yes, the government revises the interest rate quarterly. While small fluctuations occur, PPF remains a reliable investment for long-term growth.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+Can I use PPF for my child’s education or marriage?    
+<div class="faq-answer">    
+Yes, PPF is an excellent tool to save for major life goals such as education or marriage, ensuring tax-free, secure growth.    
+</div>    
+</div>    
+
+<div class="faq-box" onclick="toggleFAQ(this)">    
+What happens if I miss a yearly contribution?    
+<div class="faq-answer">    
+Missing a contribution only requires a minimal penalty, and the account continues, making it flexible for unexpected financial situations.    
+</div>    
+</div>    
+
+</div>    
+
+</div>    
+
+<!-- FOOTER -->    
+<div class="footer">    
+      
+  <div>    
+    <div class="brand">WeDA</div>    
+    <div>beyond the thought...</div>    
+  </div>    
+      
+  <div>    
+    <div class="footer-column">    
+      <h3>Explore</h3>    
+      <a href="index.html">WeDA's Home</a>    
+      <a href="finance.html">Finance</a>    
+      <a href="investment-system.html">Investment System</a>    
+      <a href="loan-system.html">Loan System</a>    
+      <a href="returns-system.html">Returns System</a>    
+      <a href="inflation-system.html">Inflation System</a>    
+      <a href="portfolio-system.html">Portfolio System</a>    
+      <a href="tax-savings-system.html">Tax & Savings System</a>    
+      <a href="retirement-system.html">Retirement System</a>    
+      <a href="financial-health-system.html">Financial Health System</a>    
+          
+    </div>    
+        
+    <div class="footer-column">    
+      <h3>Company</h3>    
+      <a href="about.html">About</a>    
+      <a href="contact.html">Contact</a>    
+      <a href="privacy-policy.html">Privacy Policy</a>    
+      <a href="terms.html">Terms and Conditions</a>    
+      <a href="disclaimer.html">Disclaimer</a>    
+    </div>    
+        
+  </div>    
+      
+</div>    
+
+<div class="bottom">    
+  © WeDA • beyond the thought...    
+</div>    
+
+<a href="#top" class="top-btn">⬆</a>    
+
+<script>    
+
+window.onpageshow=function(){    
+window.scrollTo(0,0);    
+};    
+
+function openDrawer(){    
+document.getElementById("drawer").style.right="0";    
+document.getElementById("overlay").style.display="block";    
+}    
+
+function closeDrawer(){    
+document.getElementById("drawer").style.right="-100%";    
+document.getElementById("overlay").style.display="none";    
+}    
+
+function toggleFAQ(el){    
+let ans=el.querySelector(".faq-answer");    
+ans.style.display=ans.style.display==="block"?"none":"block";    
+}    
+
+let pie,line;    
+
+function calculate(){    
+let P=document.getElementById("amount").value;    
+let r=document.getElementById("rate").value/100;    
+let t=document.getElementById("time").value;    
+
+let total=0;    
+for(let i=1;i<=t;i++){    
+total=(total+Number(P))*(1+r);    
+}    
+
+let invested=P*t;    
+let interest=total-invested;    
+
+document.getElementById("total").innerText=Math.round(total).toLocaleString('en-IN');    
+document.getElementById("interest").innerText=Math.round(interest).toLocaleString('en-IN');    
+
+if(pie) pie.destroy();    
+pie=new Chart(document.getElementById("pieChart"),{    
+type:"doughnut",    
+data:{labels:["Invested","Interest"],datasets:[{data:[invested,interest]}]}    
+});    
+
+let data=[];    
+let val=0;    
+for(let i=1;i<=t;i++){    
+val=(val+Number(P))*(1+r);    
+data.push(val);    
+}    
+
+if(line) line.destroy();    
+line=new Chart(document.getElementById("lineChart"),{    
+type:"line",    
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}    
+});    
+}    
+
+calculate();    
+</script>    
+
+</body>    
+</html>

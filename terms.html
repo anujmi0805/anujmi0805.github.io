@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+line-height:1.7;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+Terms & Conditions
+</div>
+
+<div class="container">
+
+<h1>Terms & Conditions</h1>
+<p>
+These Terms & Conditions outline the rules and guidelines for using the WeDA platform. By accessing this website, you agree to comply with these terms.
+</p>
+
+<div class="card">
+<h2>1. Use of the Platform</h2>
+<p>
+WeDA is designed to provide structured tools, calculators, and informational content across multiple sectors including finance, education, health, and utilities. The content is intended for general informational and educational purposes only.
+</p>
+<p>
+You agree to use the platform responsibly and not misuse any tools, data, or content provided.
+</p>
+</div>
+
+<div class="card">
+<h2>2. No Professional Advice</h2>
+<p>
+All information provided on WeDA, especially financial calculators and guides, does not constitute professional, financial, legal, or investment advice.
+</p>
+<p>
+Users are encouraged to verify information and consult qualified professionals before making financial decisions.
+</p>
+</div>
+
+<div class="card">
+<h2>3. Accuracy of Information</h2>
+<p>
+We strive to maintain accuracy and reliability in all tools and content. However, WeDA does not guarantee completeness or accuracy at all times.
+</p>
+<p>
+Calculators are based on standard formulas and assumptions, and results may vary depending on real-world conditions.
+</p>
+</div>
+
+<div class="card">
+<h2>4. Intellectual Property</h2>
+<p>
+All content, design elements, structure, and tools available on WeDA are part of its digital system architecture and are protected under applicable intellectual property laws.
+</p>
+<p>
+You may not copy, reproduce, or distribute content without permission.
+</p>
+</div>
+
+<div class="card">
+<h2>5. Third-Party Services</h2>
+<p>
+WeDA may display third-party advertisements or links, including services such as Google AdSense or affiliate platforms.
+</p>
+<p>
+We are not responsible for the content, policies, or services provided by third-party websites.
+</p>
+</div>
+
+<div class="card">
+<h2>6. Limitation of Liability</h2>
+<p>
+WeDA shall not be held responsible for any loss, damage, or decisions made based on the use of this platform.
+</p>
+<p>
+All usage is at your own discretion and risk.
+</p>
+</div>
+
+<div class="card">
+<h2>7. Updates to Terms</h2>
+<p>
+These Terms & Conditions may be updated periodically to reflect changes in the platform, services, or legal requirements.
+</p>
+<p>
+Continued use of the platform after updates implies acceptance of revised terms.
+</p>
+</div>
+
+<div class="card">
+<h2>8. Contact</h2>
+<p>
+If you have any questions regarding these Terms & Conditions, you can contact us at:
+</p>
+<p><strong>Email:</strong> support.weda@gmail.com</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Pages</h2>
+<a href="about.html">About WeDA</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="finance.html">Finance</a>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div class="footer-column">
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div class="footer-column">
+<h4>Explore</h4>
+<a href="finance.html">Finance</a>
+<a href="#">Health</a>
+<a href="#">Education</a>
+</div>
+
+<div class="footer-column">
+<h4>Company</h4>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="contact.html">Contact</a>
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

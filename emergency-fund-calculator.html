@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Fund Calculator | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 20px;border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* H1 STRAP */
+.h1-strap{
+background:var(--primary);
+color:#fff;
+padding:12px 20px;
+font-size:22px;
+font-weight:bold;
+}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.8;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px 0; /* NO SIDE GAP */
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer > div{
+padding:0 20px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="financial-health-system.html">Financial Health System</a> >
+Emergency Fund Calculator
+</div>
+
+<!-- H1 STRAP -->
+<div class="h1-strap">Emergency Fund Calculator</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="financial-health-score.html">Financial Health Score</a>
+<a href="monthly-budget-calculator.html">Monthly Budget Calculator</a>
+</div>
+
+<div class="container">
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Expenses (₹)</label>
+<input id="expenses" type="number" value="30000">
+
+<label>Number of Income Sources</label>
+<input id="incomeSources" type="number" value="1">
+
+<label>Income Stability (1 - 5)</label>
+<input id="stability" type="number" value="3" min="1" max="5">
+
+<label>Number of Dependents</label>
+<input id="dependents" type="number" value="4">
+
+<button onclick="calculateEmergencyFund()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Recommended Emergency Fund</p>
+<div class="green"><span id="result">₹90,000</span></div>
+</div>
+
+<!-- DESCRIPTION (CORRECT POSITION) -->
+<div class="card section">
+<p>
+An emergency fund is the foundation of financial security. It acts as a buffer against unexpected situations such as job loss, medical emergencies, or sudden financial disruptions. Without a dedicated reserve, even a small emergency can force you into debt or break long-term investments.
+
+This calculator helps you determine a realistic emergency fund based on your lifestyle, income stability, number of dependents, and risk exposure. Unlike generic advice, it adapts to your personal situation and gives a more practical estimate.
+
+A well-planned emergency fund ensures that you stay financially stable even during uncertain times. It protects your investments, prevents unnecessary borrowing, and allows you to make decisions calmly instead of reacting under pressure.
+</p>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Why Emergency Fund is Important</h2>
+<p>
+Life is unpredictable, and financial emergencies can occur at any time. Without proper planning, individuals often rely on credit cards or loans, which increases financial stress. An emergency fund acts as a shield, helping you manage such situations without disturbing your financial goals.
+</p>
+</div>
+
+<div class="card section">
+<h2>How Much Should You Save</h2>
+<p>
+The standard recommendation is to keep 6–12 months of expenses. However, this depends on your income stability, number of dependents, and job security. If your income is unstable, a larger fund is safer.
+</p>
+</div>
+
+<div class="card section">
+<h2>Where to Keep Emergency Fund</h2>
+<p>
+Your emergency fund should be easily accessible and safe. Savings accounts, liquid funds, or short-term deposits are ideal options. Avoid risky investments where value may fluctuate.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="financial-health-score.html">Financial Health Score</a>
+<a href="monthly-budget-calculator.html">Monthly Budget Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="financial-health-system.html">Financial Health System</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">What is an emergency fund?
+<div class="faq-answer">Money kept aside for unexpected situations.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">How much should I save?
+<div class="faq-answer">6–12 months of expenses.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">Is it necessary?
+<div class="faq-answer">Yes, it protects financial stability.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">Where should I keep it?
+<div class="faq-answer">Savings or liquid funds.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">Can I invest it?
+<div class="faq-answer">No, keep it safe and liquid.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">Does income affect it?
+<div class="faq-answer">Yes, unstable income needs more savings.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">Should dependents be considered?
+<div class="faq-answer">Yes, more dependents require more funds.</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">How often to review?
+<div class="faq-answer">Every few months or when life changes.</div></div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculateEmergencyFund(){
+let expenses=parseFloat(document.getElementById("expenses").value);
+let incomeSources=parseFloat(document.getElementById("incomeSources").value);
+let stability=parseFloat(document.getElementById("stability").value);
+let dependents=parseFloat(document.getElementById("dependents").value);
+
+let baseFund=expenses*6;
+let stabilityFactor=6-stability;
+let incomeFactor=incomeSources>1?0.8:1;
+
+let recommendedFund=Math.ceil(baseFund*(1+stabilityFactor*0.1)*incomeFactor + dependents*expenses);
+
+document.getElementById("result").innerText="₹"+recommendedFund.toLocaleString();
+}
+
+calculateEmergencyFund();
+</script>
+
+</body>
+</html>

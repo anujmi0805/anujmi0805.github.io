@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPF vs PPF | WeDA</title>
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.section p{
+line-height:1.7;
+color:#374151;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* H1 BLUE STRAP - Endless */
+.h1-strip{
+background:var(--primary);
+color:white;
+padding:14px 20px;
+font-size:22px;
+font-weight:bold;
+margin:-20px -20px 20px -20px; /* remove gaps to edges */
+}
+</style>
+</head>
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>      
+<a href="finance.html">Finance</a>      
+<a href="fd-calculator.html">FD Calculator</a>      
+<a href="rd-calculator.html">RD Calculator</a>      
+<a href="ppf-calculator.html">PPF Calculator</a>      
+<a href="epf-calculator.html">EPF Calculator</a>      
+<a href="fd-vs-rd.html">FD vs RD</a>      
+<a href="ppf-vs-fd.html">PPF vs FD</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="tax-savings-system.html">Tax & Savings System</a> >
+EPF vs PPF
+</div>
+
+<div class="container">
+<!-- ADDED ENDLESS BLUE STRAP ABOVE ORIGINAL H1 -->
+<h1 class="h1-strip">EPF vs PPF: Which is Better for Your Future?</h1>
+
+<!-- ORIGINAL CONTENT BELOW REMAINS UNTOUCHED -->
+<p>
+When it comes to building long-term financial security in India, EPF (Employee Provident Fund) and PPF (Public Provident Fund) are two of the most trusted and widely used options. Both are government-backed, offer tax benefits, and encourage disciplined investing over time. However, they serve slightly different purposes and are designed for different types of individuals.
+</p>
+
+<div class="card section">
+<h2>What is EPF?</h2>
+<p>
+EPF is a structured retirement savings system designed primarily for salaried employees. Every month, both the employee and employer contribute a fixed percentage of the salary into the EPF account. Over time, this creates a powerful compounding effect, making it one of the strongest retirement-building tools available for working professionals.
+</p>
+<p>
+Since it is directly linked to employment, EPF works automatically in the background without requiring active decision-making, making it highly disciplined and reliable.
+</p>
+</div>
+
+<div class="card section">
+<h2>What is PPF?</h2>
+<p>
+PPF is a voluntary long-term investment option open to all individuals, including salaried and self-employed. It offers tax-free returns, guaranteed safety, and a fixed lock-in period of 15 years. Unlike EPF, contributions in PPF are flexible, allowing individuals to invest according to their financial capacity.
+</p>
+<p>
+It is often used as a supplementary retirement or wealth-building tool alongside other investments.
+</p>
+</div>
+
+<div class="card section">
+<h2>Key Differences</h2>
+<p>
+The biggest difference lies in accessibility and structure. EPF is mandatory for eligible salaried employees and includes employer contributions, which significantly boosts total returns. PPF, on the other hand, is completely voluntary and does not include any employer contribution.
+</p>
+<p>
+While EPF is more structured and automatic, PPF offers flexibility and accessibility for a wider range of individuals.
+</p>
+</div>
+
+<div class="card section">
+<h2>Which Should You Choose?</h2>
+<p>
+If you are a salaried employee, EPF should form the foundation of your retirement planning because of the employer contribution advantage. Ignoring EPF means missing out on a major wealth-building opportunity.
+</p>
+<p>
+PPF works best as an additional layer of financial security. It helps diversify your long-term savings, provides tax-free returns, and acts as a stable backup alongside EPF.
+</p>
+<p>
+Ideally, using both together creates a balanced and strong financial system.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="epf-calculator.html">EPF Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="investment-system.html">Investment System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which gives better returns, EPF or PPF?
+<div class="faq-answer">
+Both EPF and PPF offer stable and government-backed returns. EPF interest rates may vary slightly every year, while PPF offers a fixed declared rate. In many cases, EPF tends to provide slightly higher returns due to employer contributions, making it more powerful overall.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I invest in both EPF and PPF at the same time?
+<div class="faq-answer">
+Yes, and it is actually a very smart strategy. EPF can act as your primary retirement base, while PPF can serve as an additional tax-saving and diversification tool, strengthening your overall financial structure.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is EPF mandatory for everyone?
+<div class="faq-answer">
+EPF is mandatory only for salaried employees working in organizations that fall under EPFO rules. Self-employed individuals and freelancers cannot directly contribute to EPF but can use alternatives like PPF.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is PPF completely risk-free?
+<div class="faq-answer">
+Yes, PPF is considered one of the safest investment options in India because it is backed by the government. It offers guaranteed returns and is not affected by market fluctuations, making it ideal for conservative investors.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which option is better for retirement planning?
+<div class="faq-answer">
+EPF is generally stronger for retirement because of the employer contribution and automatic deductions. However, combining EPF with PPF creates a more stable and diversified retirement portfolio.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can self-employed individuals use EPF?
+<div class="faq-answer">
+No, EPF is designed specifically for salaried employees. Self-employed individuals can instead use PPF or other investment options to build long-term savings and retirement funds.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the lock-in period for EPF and PPF?
+<div class="faq-answer">
+PPF has a strict lock-in period of 15 years, although partial withdrawals are allowed after a few years. EPF does not have a fixed lock-in but is linked to employment, with withdrawal rules based on specific conditions.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I rely only on EPF or PPF?
+<div class="faq-answer">
+Relying on a single investment is not recommended. A combination of EPF, PPF, and other investment tools like SIPs or retirement funds helps create a more balanced and resilient financial system.
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Return Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section h2{margin-bottom:10px;}
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="what-is-cagr.html">What is CAGR?</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return explained</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+Real Return Calculator
+</div>
+
+<div class="container">
+
+<h1>Real Return Calculator</h1>
+<p>Determine the actual growth of your investments by adjusting for inflation and understanding the true purchasing power gained.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Investment Return (%)</label>
+<input id="return" type="number" value="12">
+
+<label>Inflation Rate (%)</label>
+<input id="inflation" type="number" value="6">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="10">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Real Return</p>
+<div class="green"><span id="result"></span> %</div>
+</div>
+
+<!-- CHARTS -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Understanding Real Return</h2>
+<p>
+Real return reflects the true increase in the value of your investments after accounting for inflation. It helps investors distinguish between apparent gains and actual gains in purchasing power, ensuring smarter financial planning.
+</p>
+</div>
+
+<div class="card section">
+<h2>Importance in Financial Planning</h2>
+<p>
+Ignoring inflation can mislead your wealth projections. Real return enables better decision-making for long-term goals like retirement, children's education, and wealth preservation.
+</p>
+</div>
+
+<div class="card section">
+<h2>How to Interpret</h2>
+<p>
+For example, a 12% nominal return against a 6% inflation rate yields a 6% real return. This means your money grows in real terms, preserving and expanding its purchasing power over time.
+</p>
+</div>
+
+<div class="card section">
+<h2>Applications</h2>
+<p>
+Real return is fundamental in evaluating investments, comparing asset classes, planning systematic investments, and understanding the impact of inflation on your financial goals.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return explained</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="fd-calculator.html">FD Calculator </a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is real return always lower than nominal return?
+<div class="faq-answer">
+Yes, because inflation reduces purchasing power, real return is usually lower than nominal returns, showing the actual gain in wealth.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is inflation important in investing?
+<div class="faq-answer">
+Inflation erodes the value of money. Considering it helps you understand how much your investments are truly growing in terms of purchasing power.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How do I calculate real return manually?
+<div class="faq-answer">
+Real return = ((1 + nominal return) / (1 + inflation)) - 1. Multiply by 100 to get the percentage.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is considered a good real return?
+<div class="faq-answer">
+A consistent real return of 3–5% or more is generally healthy for long-term wealth creation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can real return be negative?
+<div class="faq-answer">
+Yes, if inflation exceeds the nominal return, the real return becomes negative, indicating a loss in purchasing power.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How does real return affect retirement planning?
+<div class="faq-answer">
+It ensures your retirement corpus grows in actual value, allowing you to maintain lifestyle without being affected by inflation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is real return the same for all asset classes?
+<div class="faq-answer">
+No. Stocks, bonds, and real estate may show different real returns due to varying exposure to inflation and market risks.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How often should I review real returns?
+<div class="faq-answer">
+Review annually or whenever major financial changes occur to ensure your portfolio aligns with your real growth expectations.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let r=document.getElementById("return").value/100;
+let i=document.getElementById("inflation").value/100;
+let t=document.getElementById("time").value;
+
+let real=((1+r)/(1+i)-1)*100;
+document.getElementById("result").innerText=real.toFixed(2);
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Real Gain","Inflation Impact"],datasets:[{data:[real,(r*100-real)]}]}
+});
+
+let data=[];
+for(let x=1;x<=t;x++){
+let val=Math.pow((1+r)/(1+i),x);
+data.push(val);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Real Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

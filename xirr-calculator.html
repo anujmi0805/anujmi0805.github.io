@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XIRR Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="what-is-cagr.html">What is CAGR?</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return explained</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+XIRR Calculator
+</div>
+
+<div class="container">
+
+<h1>XIRR Calculator</h1>
+<p>Use our XIRR Calculator to determine the annualized rate of return for investments with irregular cash flows, like SIPs, staggered investments, or one-time deposits made at different times.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Initial Investment (₹)</label>
+<input id="initial" type="number" value="100000">
+
+<label>Final Value (₹)</label>
+<input id="final" type="number" value="180000">
+
+<label>Time (Years)</label>
+<input id="years" type="number" value="5">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Estimated XIRR</p>
+<div class="green"><span id="xirr"></span> %</div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>What is XIRR?</h2>
+<p>XIRR (Extended Internal Rate of Return) is a practical method to compute the annualized growth rate of investments that occur at irregular intervals. It helps investors understand real returns for SIPs or other staggered contributions, rather than assuming all money was invested at once.</p>
+</div>
+
+<div class="card">
+<h2>Why XIRR Matters</h2>
+<p>Unlike CAGR, XIRR accounts for the exact dates of each investment, making it ideal for real-life investing scenarios. This ensures that the reported returns closely reflect the actual cash flow timing, giving a more realistic view of performance.</p>
+</div>
+
+<div class="card">
+<h2>Example</h2>
+<p>Suppose you invest monthly through a SIP for five years. The XIRR Calculator will consider all the deposit dates and the final redemption value to provide an accurate annual growth rate, showing how your investments truly performed.</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="portfolio-return-calculator.html">Portfolio Return</a>
+<a href="absolute-return-calculator.html">Absolute Return</a>
+<a href="rolling-return-explained.html">Rolling Return</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is XIRR used for?
+<div class="faq-answer">XIRR is used to calculate returns when investments occur at different times, such as SIPs, staggered deposits, or irregular contributions. This helps in understanding true annualized returns.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is XIRR better than CAGR?
+<div class="faq-answer">For investments made at irregular intervals, XIRR is more accurate than CAGR because it considers the timing of each cash flow.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I use XIRR for SIPs?
+<div class="faq-answer">Absolutely. XIRR is ideal for SIPs as it evaluates the exact timing of each installment and calculates a realistic annualized return.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does XIRR include compounding?
+<div class="faq-answer">Yes, compounding is inherently factored into the XIRR calculation since it annualizes returns over the investment period.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can XIRR be negative?
+<div class="faq-answer">Yes. If the final investment value is lower than the invested amount due to loss, XIRR will be negative, reflecting a negative annualized return.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the difference between IRR and XIRR?
+<div class="faq-answer">IRR assumes equal intervals between cash flows, whereas XIRR accounts for exact dates, making it more precise for real-world investments.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can XIRR handle multiple investments over time?
+<div class="faq-answer">Yes. You can add multiple investments at varying times, and XIRR will calculate the effective annualized return across all cash flows.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why should I use XIRR over CAGR for my portfolio?
+<div class="faq-answer">If you make investments irregularly or through SIPs, XIRR provides a more realistic performance measurement, which helps in better planning and comparison with other investment options.</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let chart;
+
+function calculate(){
+let initial=Number(document.getElementById("initial").value);
+let final=Number(document.getElementById("final").value);
+let years=Number(document.getElementById("years").value);
+
+let xirr=(Math.pow(final/initial,1/years)-1)*100;
+
+document.getElementById("xirr").innerText=xirr.toFixed(2);
+
+let data=[];
+for(let i=0;i<=years;i++){
+data.push(initial*Math.pow(1+xirr/100,i));
+}
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{
+labels:data.map((_,i)=>i+1),
+datasets:[{label:"Growth",data:data}]
+}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

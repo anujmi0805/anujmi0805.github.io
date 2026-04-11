@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inflation System | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:15px;
+}
+
+/* CARD LINKS */
+.card-link{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+color:var(--primary);
+display:block;
+transition:0.3s;
+}
+
+.card-link:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+Inflation System
+</div>
+
+<div class="container">
+
+<h1>Inflation System</h1>
+<p>
+The Inflation System helps you understand how rising prices impact your money, investments, and long-term financial planning. It connects calculators and knowledge pages to ensure that inflation is always considered in decision-making.
+</p>
+
+<!-- TOOLS -->
+<div class="grid">
+
+<a href="inflation-calculator.html" class="card-link">Inflation Calculator</a>
+
+<a href="inflation-adjusted-sip.html" class="card-link">Inflation Adjusted SIP</a>
+
+<a href="what-is-inflation.html" class="card-link">What is Inflation</a>
+
+<a href="inflation-impact-on-investment.html" class="card-link">Inflation Impact on Investment</a>
+
+<a href="inflation-vs-return.html" class="card-link">Inflation vs Return</a>
+
+</div>
+
+<!-- THEORY -->
+<div class="card">
+<h2>Understanding Inflation</h2>
+<p>
+Inflation represents the gradual increase in the price of goods and services over time. As inflation rises, the purchasing power of money decreases, meaning the same amount of money buys fewer goods in the future. This makes inflation one of the most critical factors in financial planning.
+</p>
+
+<p>
+Ignoring inflation can lead to serious miscalculations in investment decisions, savings goals, and long-term wealth creation. The Inflation System ensures that every financial decision is adjusted for real-world value changes.
+</p>
+</div>
+
+<div class="card">
+<h2>How Inflation Affects Investments</h2>
+<p>
+Inflation directly impacts returns. A 10% return on investment might seem attractive, but if inflation is 6%, the real return is much lower. This is why understanding inflation-adjusted returns is essential for accurate financial planning.
+</p>
+
+<p>
+Tools like inflation-adjusted SIP calculators help visualize how inflation reduces the real value of your future investments. This ensures that your goals are not just met in numbers but also in real purchasing power.
+</p>
+</div>
+
+<div class="card">
+<h2>Why This System Matters</h2>
+<p>
+Most people focus only on returns and ignore inflation, leading to overestimation of wealth. The Inflation System connects calculators, comparisons, and educational content to create a complete understanding of real returns.
+</p>
+
+<p>
+By integrating inflation into every financial decision, this system helps users build strategies that are realistic, sustainable, and aligned with long-term financial security.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions </a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is SIP | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+.section h2{margin-bottom:10px;}
+.section p{color:#374151;line-height:1.6;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;color:white;padding:30px;
+display:flex;justify-content:space-between;
+}
+
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}
+.brand{font-size:20px;font-weight:bold;}
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}
+
+.top-btn{
+position:fixed;bottom:20px;right:20px;width:55px;height:55px;
+border-radius:50%;background:var(--primary);color:white;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;font-weight:bold;cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+  <div class="close-btn" onclick="closeDrawer()">✕</div>
+  <a href="index.html">Home</a>
+  <a href="finance.html">Finance</a>
+  <a href="investment-system.html">Investment System</a>
+  <a href="sip-calculator.html">SIP Calculator</a>
+  <a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+  <a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+  <a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+  <a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+  <a href="cagr-calculator.html">CAGR Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="investment-system.html">Investment System</a> >
+What is SIP
+</div>
+
+<div class="container">
+
+<h1>What is SIP?</h1>
+<p>A clear understanding of systematic investing and how it builds long-term wealth by investing steadily over time.</p>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Definition</h2>
+<p>
+A Systematic Investment Plan (SIP) is a method of investing a fixed amount regularly in mutual funds. 
+Instead of investing a large sum at once, SIP allows you to invest smaller amounts over time, making 
+it easier to build wealth gradually while reducing the stress of market timing.
+</p>
+</div>
+
+<div class="card section">
+<h2>How SIP Works</h2>
+<p>
+You select a fixed amount and invest it monthly into a mutual fund. Each investment buys units at the current market price. 
+This creates an average cost of investment over time, minimizing the impact of market fluctuations and providing steady growth potential.
+</p>
+</div>
+
+<div class="card section">
+<h2>Power of Compounding</h2>
+<p>
+SIP benefits from compounding: the returns earned on your investments are reinvested to generate further returns. 
+This creates exponential growth over the long term, turning disciplined monthly contributions into significant wealth.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why SIP is Popular</h2>
+<p>
+SIP is simple, flexible, and accessible to everyone. It promotes disciplined investing, requires low capital, 
+and is suitable for both beginners and seasoned investors seeking consistent long-term growth.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+<a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+<a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+<a href="sip-duration-calculator.html">SIP Duration Calculator</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+</div>
+
+<!-- EXPLORE MORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="investment-system.html">Investment System</a>
+<a href="what-is-inflation.html">What is Inflation</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="inflation-impact-on-investment.html">Inflation Impact on Investment</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is SIP and how does it differ from lump sum investment?
+<div class="faq-answer">
+SIP is a disciplined way to invest small amounts regularly, reducing market timing risk. 
+Lump sum invests the entire amount at once, which can work well in rising markets but carries more timing risk.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can beginners start SIP easily?
+<div class="faq-answer">
+Yes, SIP is beginner-friendly because it allows starting with minimal investment and simplifies the learning curve for new investors.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How long should one continue SIP?
+<div class="faq-answer">
+Long-term SIPs, generally 5 to 10 years or more, are most effective due to compounding and market growth over time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the minimum investment required for SIP?
+<div class="faq-answer">
+Most mutual funds allow SIPs with as low as ₹500–₹1000 per month, making it accessible to almost everyone.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is SIP safe in volatile markets?
+<div class="faq-answer">
+SIP reduces the impact of market volatility through rupee cost averaging, making it relatively safer compared to lump sum investments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can SIP be paused or modified?
+<div class="faq-answer">
+Yes, investors can increase, decrease, or pause their SIPs according to financial goals and life situations without major penalties.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How to track SIP performance?
+<div class="faq-answer">
+Most mutual fund platforms provide online dashboards and statements to monitor investment growth and returns conveniently.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does SIP help in achieving financial goals?
+<div class="faq-answer">
+Consistent SIP investing helps systematically build wealth for short-term and long-term financial goals like buying a home, education, or retirement.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function scrollTop(){
+window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>

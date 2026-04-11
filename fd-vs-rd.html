@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FD vs RD | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+position:sticky;
+top:0;
+background:var(--bg);
+z-index:10;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0; left:0;
+width:100%; height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+overflow-y:auto;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+h1{margin-top:10px;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.faq-box:hover{
+background:#f1f5f9;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{
+font-size:20px;
+font-weight:bold;
+}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+cursor:pointer;
+z-index:10;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()" style="cursor:pointer; font-weight:bold; margin-bottom:15px;">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="epf-calculator.html">EPF Calculator</a>
+<a href="ppf-vs-fd.html">PPF vs FD</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="tax-savings-system.html">Tax & Savings System</a> >
+FD vs RD
+</div>
+
+<div class="container">
+
+<h1>FD vs RD: Which is Better?</h1>
+
+<p>
+Choosing between a Fixed Deposit (FD) and a Recurring Deposit (RD) is a common decision for individuals looking to grow their savings safely. While both are low-risk investment options offered by banks, they serve different financial behaviors and goals. Understanding how they work and when to use each can help you make smarter financial decisions aligned with your income pattern and savings discipline.
+</p>
+
+<div class="card">
+<h2>What is FD?</h2>
+<p>
+A Fixed Deposit is a one-time investment where you deposit a lump sum amount for a fixed tenure at a predetermined interest rate. It is ideal for individuals who already have surplus funds and want to earn stable and guaranteed returns without taking any market risk.
+</p>
+<p>
+FDs are commonly used for capital preservation, short-term parking of funds, and predictable income planning.
+</p>
+</div>
+
+<div class="card">
+<h2>What is RD?</h2>
+<p>
+A Recurring Deposit allows you to invest a fixed amount every month over a chosen tenure. It is designed for individuals who may not have a large lump sum but want to build savings gradually through disciplined monthly contributions.
+</p>
+<p>
+RDs help in developing a habit of saving while still earning interest similar to fixed deposits.
+</p>
+</div>
+
+<div class="card">
+<h2>Key Differences</h2>
+<p>
+The core difference lies in investment style. FD requires a lump sum upfront, while RD spreads investment over time. FD is suitable when you already have funds available, whereas RD is better for salaried individuals who prefer structured monthly savings.
+</p>
+<p>
+Additionally, FD starts earning full interest immediately on the entire amount, while RD builds gradually, so returns accumulate differently.
+</p>
+</div>
+
+<div class="card">
+<h2>Which One Should You Choose?</h2>
+<p>
+If you have received a bonus, inheritance, or accumulated savings, FD can help you lock in returns immediately. On the other hand, if your income is periodic and you want to build wealth consistently without financial strain, RD becomes a more practical choice.
+</p>
+<p>
+In many cases, a balanced approach using both FD and RD can help manage liquidity while ensuring disciplined growth.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="epf-calculator.html">EPF Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which is better, FD or RD?
+<div class="faq-answer">
+It depends on your financial situation. FD is better if you already have a lump sum, while RD is suitable if you prefer investing small amounts regularly over time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is RD safer than FD?
+<div class="faq-answer">
+Both RD and FD are equally safe when offered by banks, as they are not market-linked and provide fixed returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I break FD or RD before maturity?
+<div class="faq-answer">
+Yes, both can be withdrawn before maturity, but banks may charge a penalty or offer lower interest in such cases.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which gives higher returns?
+<div class="faq-answer">
+FD and RD usually offer similar interest rates, but FD may generate slightly higher returns since the full amount is invested from the beginning.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is RD good for beginners?
+<div class="faq-answer">
+Yes, RD is excellent for beginners as it encourages disciplined saving without requiring a large upfront investment.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I run FD and RD together?
+<div class="faq-answer">
+Yes, many people use both. FD for lump sum savings and RD for monthly contributions to maintain balance.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Are FD and RD taxable?
+<div class="faq-answer">
+Yes, the interest earned from both FD and RD is taxable as per your income tax slab.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which is better for short-term goals?
+<div class="faq-answer">
+FD is generally better for short-term goals if you already have funds, as it provides immediate returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does RD help build financial discipline?
+<div class="faq-answer">
+Yes, RD is specifically designed to help individuals develop a habit of regular saving, making it ideal for long-term financial discipline.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn" onclick="scrollToTop()">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+// Top Button Smooth Scroll
+function scrollToTop(){
+window.scrollTo({top:0, behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>

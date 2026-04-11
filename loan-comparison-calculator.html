@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Comparison Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;}
+.drawer{position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;}
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #ccc;}
+button{width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:8px;cursor:pointer;}
+.result-box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;}
+.green{color:var(--green);font-weight:bold;}
+.section p{color:#374151;line-height:1.7;}
+.link-box a{display:block;padding:10px 0;color:var(--primary);text-decoration:none;}
+
+/* FAQ */
+.faq-box{border:1px solid #ddd;border-radius:10px;margin-bottom:10px;padding:12px;cursor:pointer;}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{background:#111827;color:white;padding:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+.footer-column{min-width:180px;}
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}
+.brand{font-size:20px;font-weight:bold;}
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}
+
+/* TOP BUTTON */
+.top-btn{position:fixed;bottom:20px;right:20px;width:55px;height:55px;border-radius:50%;
+background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;cursor:pointer;}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="what-is-emi.html">What is EMI</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> > 
+<a href="finance.html">Finance</a> > 
+<a href="loan-system.html">Loan System</a> >
+Loan Comparison Calculator
+</div>
+
+<div class="container">
+
+<h1>Loan Comparison Calculator</h1>
+<p>Compare multiple loans efficiently to make smarter financial choices. This tool helps you analyze two loans side by side and select the option that saves the most money over the long term.</p>
+
+<!-- INPUT -->
+<div class="card">
+<h3>Loan A</h3>
+<input id="loan1" type="number" value="500000" placeholder="Principal Amount">
+<input id="rate1" type="number" value="10" placeholder="Interest Rate (%)">
+<input id="time1" type="number" value="5" placeholder="Tenure (Years)">
+
+<h3>Loan B</h3>
+<input id="loan2" type="number" value="500000" placeholder="Principal Amount">
+<input id="rate2" type="number" value="9" placeholder="Interest Rate (%)">
+<input id="time2" type="number" value="5" placeholder="Tenure (Years)">
+
+<button onclick="calculate()">Compare</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p><b>Loan A Total:</b> ₹ <span id="total1"></span></p>
+<p><b>Loan B Total:</b> ₹ <span id="total2"></span></p>
+<p class="green">Better Option: <span id="better"></span></p>
+</div>
+
+<!-- PIE -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<!-- LINE -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Why Compare Loans?</h2>
+<p>
+Comparing loans is essential to avoid overpaying. Even small differences in interest rates or tenures can impact total repayment significantly. Using this tool ensures you understand the financial implications of each loan option clearly.
+</p>
+</div>
+
+<div class="card section">
+<h2>What to Look For</h2>
+<p>
+When comparing loans, consider total repayment, EMI affordability, and interest paid. A lower EMI might look attractive but may increase the total interest burden if the tenure is longer. Balance short-term affordability with long-term cost.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="fd-calculator.html">FD Calculator </a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="financial-health-score.html">Financial Health Score</a>
+<a href="retirement-planner.html">Retirement Planner</a>
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator </a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator </a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which loan is better?
+<div class="faq-answer">
+The loan with the lower total repayment is generally better. Always consider total interest, tenure, and EMI together to make a well-informed decision.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does tenure affect total cost?
+<div class="faq-answer">
+Yes. Extending the tenure lowers EMI but increases total interest, making the loan more expensive overall.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I only look at interest rate?
+<div class="faq-answer">
+No. Interest rate alone is insufficient. Total repayment, tenure, and EMI all must be evaluated to determine the best option.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is lower EMI always better?
+<div class="faq-answer">
+Not necessarily. Lower EMI may reduce monthly pressure but increase total cost due to longer tenure.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I compare different types of loans?
+<div class="faq-answer">
+Yes. This calculator allows comparing different loans, including personal loans, home loans, or car loans, to find the most cost-effective option.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How often should I compare loans?
+<div class="faq-answer">
+Whenever you consider a new loan, it is advisable to run a comparison to ensure you choose the most financially beneficial option.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Will prepayment impact the comparison?
+<div class="faq-answer">
+Yes. Prepayment reduces total interest and can significantly change which loan is cheaper overall. Consider prepayment options when comparing.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calcEMI(P,r,n){
+r=r/100/12;
+n=n*12;
+let emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+return emi*n;
+}
+
+function calculate(){
+let t1=calcEMI(
+document.getElementById("loan1").value,
+document.getElementById("rate1").value,
+document.getElementById("time1").value
+);
+
+let t2=calcEMI(
+document.getElementById("loan2").value,
+document.getElementById("rate2").value,
+document.getElementById("time2").value
+);
+
+document.getElementById("total1").innerText=Math.round(t1).toLocaleString('en-IN');
+document.getElementById("total2").innerText=Math.round(t2).toLocaleString('en-IN');
+document.getElementById("better").innerText = t1<t2?"Loan A":"Loan B";
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Loan A","Loan B"],datasets:[{data:[t1,t2]}]}
+});
+
+let data1=[],data2=[];
+for(let i=1;i<=60;i++){
+data1.push(t1/60*i);
+data2.push(t2/60*i);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{
+labels:data1.map((_,i)=>i+1),
+datasets:[
+{label:"Loan A",data:data1},
+{label:"Loan B",data:data2}
+]
+}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

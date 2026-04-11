@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Health Score | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid #ddd;
+}
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);display:none;z-index:5;}
+.drawer{position:fixed;top:0;right:-100%;width:70%;height:100%;background:#fff;padding:20px;transition:0.3s;z-index:10;}
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #ccc;}
+button{width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:8px;cursor:pointer;}
+.result-box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;}
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+.section p{color:#374151;line-height:1.7;}
+.link-box a{display:block;padding:10px 0;color:var(--primary);text-decoration:none;}
+.faq-box{border:1px solid #ddd;border-radius:10px;margin-bottom:10px;padding:12px;cursor:pointer;}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{background:#111827;color:white;padding:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+.footer-column{min-width:180px;}
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}
+.brand{font-size:20px;font-weight:bold;}
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}
+
+/* TOP BUTTON */
+.top-btn{position:fixed;bottom:20px;right:20px;width:55px;height:55px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="emergency-fund-calculator.html">Emergency Fund Calculator </a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="financial-health-system.html">Financial Health System</a> >
+Financial Health Score
+</div>
+
+<div class="container">
+
+<h1>Financial Health Score</h1>
+<p>
+Evaluate your overall financial wellness with this comprehensive Financial Health Score tool. By analyzing assets, liabilities, income stability, and savings habits, you gain a clear understanding of your current financial situation. A high score reflects strong financial health, helping you plan for the future with confidence.
+</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Total Assets (₹)</label>
+<input id="assets" type="number" value="500000">
+
+<label>Total Liabilities (₹)</label>
+<input id="liabilities" type="number" value="200000">
+
+<label>Monthly Income (₹)</label>
+<input id="income" type="number" value="50000">
+
+<label>Monthly Expenses (₹)</label>
+<input id="expenses" type="number" value="30000">
+
+<button onclick="calculateHealthScore()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Your Financial Health Score</p>
+<div class="green"><span id="result">75</span></div>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Understanding Your Financial Health</h2>
+<p>
+A strong financial health score indicates balanced assets, manageable debt, consistent income, and disciplined spending. It helps identify weak areas such as high liabilities or low savings, providing guidance for targeted improvements.
+</p>
+</div>
+
+<div class="card section">
+<h2>How to Improve Your Score</h2>
+<p>
+Increase your score by reducing debt, increasing savings, and optimizing your expenses. Diversifying investments, building an emergency fund, and regular monitoring can significantly enhance your financial resilience over time.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="emergency-fund-calculator.html">Emergency Fund Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="financial-health-system.html">Financial Health System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="how-compounding-works.html">How Compounding Works</a>
+<a href="investment-system.html">Investment System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is a financial health score?
+<div class="faq-answer">
+It is a numerical representation of your overall financial wellness, considering assets, liabilities, income, and expenses.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is it important?
+<div class="faq-answer">
+Understanding your financial health helps you make informed decisions, reduce risks, and achieve long-term financial goals.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is the score calculated?
+<div class="faq-answer">
+The score is based on a weighted analysis of assets vs liabilities, income stability, savings habits, and expense management.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I have a high score with low income?
+<div class="faq-answer">
+Yes, disciplined spending and asset management can lead to a strong financial score regardless of income level.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How often should I check it?
+<div class="faq-answer">
+Regular monitoring, at least quarterly, helps track improvements and adjust financial strategies accordingly.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does it include investments?
+<div class="faq-answer">
+Yes, investments, savings accounts, and other liquid assets are included in the calculation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can this score improve quickly?
+<div class="faq-answer">
+Yes, by reducing debt, controlling expenses, and increasing savings, you can see a noticeable improvement over months.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is it useful for retirement planning?
+<div class="faq-answer">
+Absolutely, it gives a clear picture of your financial readiness for retirement and helps plan required adjustments.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculateHealthScore(){
+let assets=parseFloat(document.getElementById("assets").value);
+let liabilities=parseFloat(document.getElementById("liabilities").value);
+let income=parseFloat(document.getElementById("income").value);
+let expenses=parseFloat(document.getElementById("expenses").value);
+
+let netWorth=assets-liabilities;
+let savingsRatio=(income-expenses)/income;
+let score=Math.round((netWorth/1000000 + savingsRatio)*100);
+score = score > 100 ? 100 : score < 0 ? 0 : score;
+document.getElementById("result").innerText=score;
+}
+</script>
+
+</body>
+</html>

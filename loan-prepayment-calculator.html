@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Prepayment Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 20px;border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;}
+.drawer{position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;}
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #ccc;}
+button{width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:8px;cursor:pointer;}
+
+/* RESULT */
+.result-box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;}
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{display:block;padding:10px 0;color:var(--primary);text-decoration:none;}
+
+/* FAQ */
+.faq-box{border:1px solid #ddd;border-radius:10px;margin-bottom:10px;padding:12px;cursor:pointer;}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{background:#111827;color:white;padding:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+.footer-column{min-width:180px;}
+.footer a{display:block;color:#9ca3af;margin:6px 0;text-decoration:none;}
+.brand{font-size:20px;font-weight:bold;}
+.bottom{text-align:center;padding:10px;background:#111827;color:#9ca3af;}
+
+/* TOP BUTTON */
+.top-btn{position:fixed;bottom:20px;right:20px;width:55px;height:55px;border-radius:50%;
+background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;
+font-size:30px;font-weight:900;cursor:pointer;}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="what-is-emi.html">What is EMI</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> > <a href="finance.html">Finance</a> >
+<a href="loan-system.html">Loan System</a> >
+Loan Prepayment Calculator
+</div>
+
+<div class="container">
+
+<h1>Loan Prepayment Calculator</h1>
+<p>Quickly calculate how extra payments can shorten your loan tenure and save you thousands in interest. This tool helps you visualize your financial benefits before making prepayments.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Loan Amount (₹)</label>
+<input id="loan" type="number" value="500000">
+
+<label>Interest Rate (%)</label>
+<input id="rate" type="number" value="10">
+
+<label>Tenure (Years)</label>
+<input id="time" type="number" value="10">
+
+<label>Extra Monthly Payment (₹)</label>
+<input id="extra" type="number" value="2000">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Interest Saved</p>
+<div class="green">₹ <span id="saved"></span></div>
+<p>New Loan Duration: <span id="newtime"></span> months</p>
+</div>
+
+<!-- CHARTS -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>What is Loan Prepayment?</h2>
+<p>
+Loan prepayment involves paying extra towards your outstanding principal before the scheduled due date. This reduces your interest burden and helps you finish the loan faster, giving you more control over your financial future.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why It Matters</h2>
+<p>
+Making extra payments, even small ones, can significantly reduce the total interest you pay over time. Prepayment improves your cash flow, financial discipline, and debt-to-income ratio, helping you achieve long-term financial stability.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="fd-calculator.html">FD Calculator </a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="fd-vs-rd.html">FD vs RD</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More Financial Tools</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-score.html">Financial Health Score</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is loan prepayment always beneficial?
+<div class="faq-answer">
+Yes, prepaying your loan generally reduces total interest costs. However, check if your lender applies prepayment penalties.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens if I prepay a small amount each month?
+<div class="faq-answer">
+Even small extra payments can shorten your loan term slightly and reduce interest over the life of the loan. Every bit counts.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Will prepayment reduce my EMI or tenure?
+<div class="faq-answer">
+You may choose either: reducing EMI or shortening tenure, depending on lender terms. Often, shortening tenure is more cost-effective.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Are there prepayment charges?
+<div class="faq-answer">
+Some lenders impose charges for early payment, particularly on fixed-rate loans. Always check your loan agreement.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+When is the best time to prepay?
+<div class="faq-answer">
+Ideally early in the loan tenure when interest is high. Prepaying later still helps but may save less interest.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How do I decide the extra payment amount?
+<div class="faq-answer">
+Consider your monthly cash flow and other financial goals. The extra should be comfortable and sustainable.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does prepayment affect my credit score?
+<div class="faq-answer">
+No, paying extra toward your loan does not negatively impact your credit score. It may even improve it by reducing your debt-to-income ratio.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I prepay part of the loan and keep EMI same?
+<div class="faq-answer">
+Yes, some lenders allow partial prepayment while maintaining EMI, which shortens tenure instead of reducing monthly installments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the impact of prepayment on long-term finances?
+<div class="faq-answer">
+Prepayment helps you save interest, improve financial freedom, and frees up money for investments or emergencies.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){document.getElementById("drawer").style.right="0";document.getElementById("overlay").style.display="block";}
+function closeDrawer(){document.getElementById("drawer").style.right="-100%";document.getElementById("overlay").style.display="none";}
+function toggleFAQ(el){let ans=el.querySelector(".faq-answer");ans.style.display=ans.style.display==="block"?"none":"block";}
+
+let pie,line;
+function calculate(){
+let P=Number(document.getElementById("loan").value);
+let r=Number(document.getElementById("rate").value)/100/12;
+let n=Number(document.getElementById("time").value)*12;
+let extra=Number(document.getElementById("extra").value);
+let emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+let balance=P,months=0,totalInterest=0,safetyCounter=0;
+
+while(balance>0 && safetyCounter<1000){
+let interest=balance*r;
+let payment=emi+extra;
+if(payment<=interest){alert("Extra payment too low. Loan will not close.");break;}
+balance=balance+interest-payment;
+totalInterest+=interest;
+months++;
+safetyCounter++;
+}
+
+let normalTotal=emi*n;
+let normalInterest=normalTotal-P;
+let saved=normalInterest-totalInterest;
+document.getElementById("saved").innerText=Math.round(saved).toLocaleString('en-IN');
+document.getElementById("newtime").innerText=months;
+
+// PIE
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{type:"doughnut",data:{labels:["Saved","Interest Paid"],datasets:[{data:[saved,totalInterest]}]}});
+// LINE
+let data=[];
+let bal=P;
+for(let i=1;i<=months;i++){let interest=bal*r;bal=bal+interest-(emi+extra);data.push(bal>0?bal:0);}
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{type:"line",data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Loan Balance",data:data}]}});
+
+}
+
+calculate();
+</script>
+
+</body>
+</html>

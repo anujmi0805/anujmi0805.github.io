@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+About
+</div>
+
+<div class="container">
+
+<h1>About WeDA</h1>
+<p>
+WeDA is a structured digital platform built to simplify complexity, enable clarity, and support decision-making across multiple areas of everyday life. Instead of presenting isolated tools or scattered information, WeDA is designed as a system — where each section connects with another, forming a larger, organized ecosystem.
+</p>
+
+<!-- VISION -->
+<div class="card">
+<h2>What WeDA Represents</h2>
+<p>
+At its core, WeDA is not just a collection of calculators or informational pages. It is an evolving platform built around structured thinking. The goal is to transform complex topics into clear, understandable, and actionable systems that users can rely on for better decisions.
+</p>
+<p>
+Rather than focusing on a single category, the platform is designed to expand across multiple domains. These include finance, education, health, utilities, planning systems, productivity tools, and other real-world areas that influence daily decisions and long-term outcomes.
+</p>
+<p>
+Each section within WeDA is organized in a way that allows users to explore topics step by step, moving from understanding basic concepts to applying them through tools and structured guidance.
+</p>
+</div>
+
+<!-- STRUCTURE -->
+<div class="card">
+<h2>Structured System Approach</h2>
+<p>
+Most digital platforms either focus only on content or only on tools. WeDA combines both into a unified structure. Every tool is supported by clear explanations, and every concept is connected to practical applications.
+</p>
+<p>
+For example, a financial calculator is not presented in isolation. It is connected to related concepts, comparisons, and decision-making guides. This creates a continuous flow where users can move forward logically without confusion.
+</p>
+<p>
+This structure is applied across all sectors, ensuring that the experience remains consistent, predictable, and easy to navigate.
+</p>
+</div>
+
+<!-- MULTI SECTOR -->
+<div class="card">
+<h2>Multi-Sector Expansion</h2>
+<p>
+WeDA is designed to grow across a wide range of sectors over time. These include, but are not limited to:
+</p>
+<p>
+Financial planning, investment systems, loan management, savings strategies, health tracking, educational planning, productivity tools, utility-based calculators, and decision-support systems.
+</p>
+<p>
+Each sector is developed with a similar philosophy — structured pages, interconnected tools, and clear navigation paths. This ensures that regardless of the topic, users experience the same level of clarity and consistency.
+</p>
+</div>
+
+<!-- USER BENEFIT -->
+<div class="card">
+<h2>Why This Platform Exists</h2>
+<p>
+In today’s digital environment, users often encounter fragmented information. Tools exist without explanations, and explanations exist without practical application. This creates confusion rather than clarity.
+</p>
+<p>
+WeDA aims to solve this problem by connecting everything into a meaningful system. The focus is not only on providing answers but also on helping users understand how those answers fit into a larger context.
+</p>
+<p>
+Whether someone is planning investments, managing expenses, evaluating options, or simply trying to understand a concept, the platform is designed to guide them through a logical and structured process.
+</p>
+</div>
+
+<!-- DESIGN -->
+<div class="card">
+<h2>Design Philosophy</h2>
+<p>
+The platform follows a clean, minimal, and professional design approach. Every page is built with consistency in mind — from layout and spacing to navigation and content structure.
+</p>
+<p>
+This ensures that users do not need to relearn how the platform works when moving between pages or sectors. Familiarity improves usability, and usability improves decision-making.
+</p>
+</div>
+
+<!-- FUTURE -->
+<div class="card">
+<h2>Ongoing Development</h2>
+<p>
+WeDA is continuously evolving. New pages, tools, and systems are added regularly to expand coverage and improve depth. The focus remains on maintaining quality, structure, and relevance as the platform grows.
+</p>
+<p>
+The long-term vision is to build a comprehensive system where users can access multiple domains in one place, without losing clarity or structure.
+</p>
+</div>
+
+<!-- LINKS -->
+
+
+</div>
+
+<div class="card link-box">
+<h2>Important</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div class="footer-column">
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+
+
+<div class="footer-column">
+<h4>Company</h4>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy</a>
+<a href="contact.html">Contact</a>
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

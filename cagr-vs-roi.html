@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAGR vs ROI | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* H1 STRAP */
+.h1-strip{
+background:var(--primary);
+color:white;
+padding:14px 20px;
+font-size:22px;
+font-weight:bold;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+/* TABLE */
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:10px;
+text-align:left;
+}
+
+th{
+background:#e5e7eb;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return Explained</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+CAGR vs ROI
+</div>
+
+<!-- H1 STRIP -->
+<div class="h1-strip">CAGR vs ROI</div>
+
+<div class="container">
+
+<p>
+When evaluating investments, understanding how returns are measured is crucial. Two of the most commonly used metrics are ROI (Return on Investment) and CAGR (Compound Annual Growth Rate). While both aim to measure profitability, they serve different purposes and can lead to very different conclusions if misunderstood.
+</p>
+
+<div class="card">
+<h2>What is ROI?</h2>
+<p>
+ROI, or Return on Investment, measures the total gain or loss on an investment relative to its initial cost. It is simple, quick, and widely used for basic comparisons. However, ROI does not consider how long the investment was held, which can sometimes create a misleading picture when comparing multiple opportunities.
+</p>
+</div>
+
+<div class="card">
+<h2>What is CAGR?</h2>
+<p>
+CAGR represents the annualized growth rate of an investment over a specific period, assuming the returns are compounded. It smooths out fluctuations and provides a consistent yearly growth rate, making it far more reliable for long-term comparisons and financial planning.
+</p>
+</div>
+
+<div class="card">
+<h2>Key Differences</h2>
+
+<table>
+<tr><th>Factor</th><th>ROI</th><th>CAGR</th></tr>
+<tr><td>Time Factor</td><td>Ignored</td><td>Included</td></tr>
+<tr><td>Accuracy</td><td>Basic estimation</td><td>More realistic annual growth</td></tr>
+<tr><td>Use Case</td><td>Short-term evaluation</td><td>Long-term planning</td></tr>
+<tr><td>Compounding</td><td>Not considered</td><td>Fully considered</td></tr>
+</table>
+
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return Explained</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="inflation-impact-on-investment.html">Inflation Impact</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which is better for long-term investing, CAGR or ROI?
+<div class="faq-answer">
+CAGR is generally better for long-term investing because it accounts for time and compounding. It gives a more realistic annual growth rate, which helps in comparing different investment options more accurately.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can ROI give misleading results?
+<div class="faq-answer">
+Yes, ROI can sometimes be misleading because it ignores the duration of the investment. Two investments with the same ROI can have very different performance if one took much longer to achieve the same return.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is CAGR always accurate in real-world scenarios?
+<div class="faq-answer">
+CAGR assumes steady growth over time, which may not reflect actual market volatility. However, it still provides a useful average growth rate for long-term analysis and planning.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why do professionals prefer CAGR?
+<div class="faq-answer">
+Professionals prefer CAGR because it standardizes returns into an annual growth rate. This makes it easier to compare different investments, even if they have different durations or return patterns.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I use CAGR and ROI together?
+<div class="faq-answer">
+Yes, using both metrics together gives a clearer understanding. ROI shows total gain, while CAGR shows how efficiently the investment grew over time.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does CAGR include risk or volatility?
+<div class="faq-answer">
+No, CAGR does not include risk or volatility. It only provides an average growth rate.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is ROI still useful for investors?
+<div class="faq-answer">
+Yes, ROI is useful for quick comparisons and short-term decisions.
+</div></div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+When should I avoid relying only on ROI?
+<div class="faq-answer">
+Avoid relying only on ROI when comparing investments across different time periods.
+</div></div>
+
+</div>
+
+</div>
+
+<!-- FOOTER (UNCHANGED STRUCTURE) -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+</script>
+
+</body>
+</html>

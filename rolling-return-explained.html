@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rolling Return Explained | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="what-is-cagr.html">What is CAGR?</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+Rolling Return Explained
+</div>
+
+<div class="container">
+
+<h1>Rolling Return Explained</h1>
+<p>
+Rolling return is a concept used to measure the performance of an investment over overlapping periods of the same length. It provides a dynamic view of returns over time, smoothing out short-term fluctuations and giving investors a clearer understanding of consistent performance.
+</p>
+
+<div class="card section">
+<h2>Understanding Rolling Returns</h2>
+<p>
+Traditional returns like CAGR provide a snapshot from start to end, but they might hide periods of underperformance. Rolling returns calculate returns for every possible period of a fixed length (for example, 1-year or 3-year windows), giving a range of results that reveal the consistency of performance.
+</p>
+</div>
+
+<div class="card section">
+<h2>How Rolling Returns Work</h2>
+<p>
+For example, if you analyze a mutual fund over 5 years using 3-year rolling returns, the calculation is done for years 1-3, 2-4, and 3-5. Each window produces a return, helping you see the fund's behavior during different periods. This approach shows both highs and lows and highlights the reliability of returns.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why Rolling Returns Are Important</h2>
+<p>
+Investors use rolling returns to assess volatility, risk, and consistency. A fund may have high overall returns, but if rolling returns show large swings, the investment is less stable. By examining rolling returns, you can make better-informed choices about your portfolio allocation.
+</p>
+</div>
+
+<div class="card section">
+<h2>Example of Rolling Returns</h2>
+<p>
+Consider a fund with yearly returns of 10%, 12%, 5%, 15%, and 8%. A 3-year rolling return will give results for years 1-3, 2-4, and 3-5. By looking at these overlapping periods, investors get a clearer picture of the fund’s consistency rather than relying solely on the start-to-end CAGR.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="investment-system.html">Investment System</a>
+<a href="returns-system.html">Returns System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What are rolling returns?
+<div class="faq-answer">
+Rolling returns measure investment performance over overlapping periods of the same length to understand consistency.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How are rolling returns calculated?
+<div class="faq-answer">
+By computing returns for every possible time window of a fixed length within the total investment period.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why use rolling returns instead of CAGR?
+<div class="faq-answer">
+CAGR shows only the start-to-end growth. Rolling returns reveal consistency and highlight performance fluctuations.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Do rolling returns show risk?
+<div class="faq-answer">
+Yes, they help identify volatility and periods of underperformance, making risk evaluation easier.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can rolling returns be negative?
+<div class="faq-answer">
+Yes, if any of the overlapping periods had losses, rolling returns can be negative.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Are rolling returns useful for long-term investors?
+<div class="faq-answer">
+Absolutely, they provide insight into consistency and reliability of returns over extended periods.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What period should I choose for rolling returns?
+<div class="faq-answer">
+Common periods are 1-year, 3-year, or 5-year windows depending on your investment horizon and analysis needs.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can rolling returns predict future returns?
+<div class="faq-answer">
+No, rolling returns are based on past data. They help evaluate performance patterns but do not guarantee future outcomes.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+</script>
+
+</body>
+</html>

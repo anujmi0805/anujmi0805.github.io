@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disclaimer | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{
+color:var(--primary);
+font-size:22px;
+font-weight:bold;
+}
+
+.tagline{
+font-size:12px;
+color:gray;
+}
+
+.menu-btn{
+font-size:26px;
+cursor:pointer;
+}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{
+font-size:20px;
+font-weight:bold;
+}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="contact.html">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> > Disclaimer
+</div>
+
+<div class="container">
+
+<h1>Disclaimer</h1>
+
+<div class="card">
+<h2>General Information</h2>
+<p>
+The information provided on WeDA is for general informational and educational purposes only. While we aim to present accurate, structured, and useful content across all sectors including finance, health, education, and utilities, we make no guarantees regarding completeness, reliability, or accuracy.
+</p>
+<p>
+Any action you take based on the information available on this website is strictly at your own risk. WeDA shall not be held liable for any losses, damages, or consequences arising from the use of the platform.
+</p>
+</div>
+
+<div class="card">
+<h2>No Professional Advice</h2>
+<p>
+All calculators, tools, guides, and explanations provided on this platform are designed to simplify understanding and assist in decision-making. However, they should not be considered as professional financial, legal, medical, or investment advice.
+</p>
+<p>
+Users are strongly encouraged to consult certified professionals before making any financial or life decisions based on the information or tools available on WeDA.
+</p>
+</div>
+
+<div class="card">
+<h2>Accuracy of Calculations</h2>
+<p>
+Our calculators are built using standard formulas and assumptions. While we strive to maintain high accuracy, actual results may vary due to market conditions, policy changes, interest rate fluctuations, or other external factors.
+</p>
+<p>
+We do not guarantee that calculator outputs will reflect real-world outcomes, and they should be used as estimation tools only.
+</p>
+</div>
+
+<div class="card">
+<h2>External Links Disclaimer</h2>
+<p>
+WeDA may contain links to external websites, tools, or third-party services. These links are provided for convenience and additional reference.
+</p>
+<p>
+We do not control, endorse, or take responsibility for the content, accuracy, or practices of any third-party websites.
+</p>
+</div>
+
+<div class="card">
+<h2>Affiliate Disclosure</h2>
+<p>
+In the future, some pages on WeDA may include affiliate links related to financial products or services such as loans, credit cards, or investment platforms.
+</p>
+<p>
+If a user chooses to engage with such links, WeDA may earn a small commission at no additional cost to the user. This helps support the platform and maintain free access to tools and content.
+</p>
+</div>
+
+<div class="card">
+<h2>Consent</h2>
+<p>
+By using our website, you hereby consent to this disclaimer and agree to its terms.
+</p>
+</div>
+
+<div class="card">
+<h2>Updates</h2>
+<p>
+We may update, amend, or make changes to this disclaimer at any time without prior notice. Users are encouraged to review this page periodically to stay informed about any updates.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div class="footer-column">
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div class="footer-column">
+<h4>Explore</h4>
+<a href="finance.html">Finance</a>
+<a href="#">Health</a>
+<a href="#">Education</a>
+</div>
+
+<div class="footer-column">
+<h4>Important</h4>
+<a href="about.html">About</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="contact.html">Contact</a>
+</div>
+
+</div>
+
+<div class="bottom">© WeDA • beyond the thought...</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

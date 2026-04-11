@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio System | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:15px;
+}
+
+.card-link{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+color:var(--primary);
+display:block;
+transition:0.3s;
+}
+
+.card-link:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+Portfolio System
+</div>
+
+<div class="container">
+
+<h1>Portfolio System</h1>
+<p>
+The Portfolio System focuses on managing, analyzing, and optimizing your investments as a complete structure rather than isolated assets. It helps you understand how different investments work together and how to improve overall performance over time.
+</p>
+
+<!-- TOOLS -->
+<div class="grid">
+
+<a href="portfolio-return-calculator.html" class="card-link">Portfolio Return Calculator</a>
+
+<a href="portfolio-growth-calculator.html" class="card-link">Portfolio Growth Calculator</a>
+
+<a href="asset-allocation-calculator.html" class="card-link">Asset Allocation Calculator</a>
+
+</div>
+
+<!-- THEORY -->
+<div class="card">
+<h2>What is a Portfolio?</h2>
+<p>
+A portfolio is a collection of all your investments combined into one structure. Instead of looking at individual investments separately, a portfolio approach focuses on how everything works together. This includes mutual funds, stocks, fixed deposits, and other assets.
+</p>
+
+<p>
+The real strength of investing comes not just from choosing the right asset, but from balancing multiple assets in a way that aligns with your goals and risk level.
+</p>
+</div>
+
+<div class="card">
+<h2>Why Portfolio Thinking Matters</h2>
+<p>
+Many investors focus only on returns from a single investment. However, long-term wealth is built by managing a complete portfolio. Some investments may perform well while others provide stability. Together, they create a balanced growth path.
+</p>
+
+<p>
+A structured portfolio helps reduce risk, smooth out returns, and improve decision-making. It ensures that you are not dependent on one single asset or strategy.
+</p>
+</div>
+
+<div class="card">
+<h2>How These Tools Connect</h2>
+<p>
+The Portfolio Return Calculator helps you understand how your combined investments are performing. The Growth Calculator projects how your portfolio may grow over time. The Asset Allocation tool helps you distribute your investments across different categories for better balance.
+</p>
+
+<p>
+These tools are designed to work together. Instead of using them independently, they guide you step-by-step toward building a stronger and more stable financial system.
+</p>
+</div>
+
+<div class="card">
+<h2>Building a Structured Portfolio</h2>
+<p>
+A strong portfolio is not built overnight. It evolves with time, income, goals, and market conditions. Starting with basic allocation and gradually refining it using insights from these tools leads to better long-term outcomes.
+</p>
+
+<p>
+The goal is not just higher returns, but smarter and more stable growth. This system helps you move from random investing to a clear, structured approach.
+</p>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions </a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRR Calculator | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="what-is-cagr.html">What is CAGR?</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="rolling-return-explained.html">Rolling Return explained</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+IRR Calculator
+</div>
+
+<div class="container">
+
+<h1>IRR Calculator</h1>
+<p>
+The Internal Rate of Return (IRR) Calculator helps investors determine the rate of return at which the net present value of cash flows equals zero. IRR is essential for understanding the profitability of projects, investments, or loans over multiple periods.
+</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Initial Investment / Outflow (₹)</label>
+<input id="initial" type="number" value="100000">
+
+<label>Cash Flows (comma separated, ₹)</label>
+<input id="cashflows" type="text" value="20000,30000,40000,50000,60000">
+
+<button onclick="calculateIRR()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Internal Rate of Return</p>
+<div class="green"><span id="result"></span> %</div>
+</div>
+
+<!-- WHAT IS IRR SECTION -->
+<div class="card section">
+<h2>What is IRR?</h2>
+<p>
+Internal Rate of Return (IRR) represents the discount rate that makes the net present value (NPV) of future cash flows equal to zero. It is widely used by investors and financial analysts to evaluate and compare the efficiency of investments or projects.
+</p>
+</div>
+
+<div class="card section">
+<h2>How IRR Works</h2>
+<p>
+IRR essentially finds the break-even rate for your investment. A project with an IRR higher than your required rate of return is considered good. It accounts for the timing and size of cash flows, giving a more nuanced view than total returns or CAGR alone.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why IRR Matters</h2>
+<p>
+IRR allows comparison across investment options, factoring in both inflows and outflows over time. It is especially useful for project financing, real estate, or multi-year portfolios, helping investors make data-driven decisions.
+</p>
+</div>
+
+<div class="card section">
+<h2>Example</h2>
+<p>
+Suppose you invest ₹1,00,000 in a project and receive annual cash flows of ₹20,000, ₹30,000, ₹40,000, ₹50,000, and ₹60,000 over 5 years. The IRR Calculator determines the rate at which the NPV becomes zero, helping you assess the project’s viability.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="rolling-return-explained.html">Rolling Returns</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="asset-allocation-calculator.html">Asset Allocation Calculator </a>
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator </a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+<div class="faq-box" onclick="toggleFAQ(this)">
+What does IRR mean in simple terms?
+<div class="faq-answer">
+IRR is the discount rate at which the net present value of an investment’s cash flows becomes zero. It shows the true annual growth rate considering inflows and outflows over time.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is IRR better than CAGR?
+<div class="faq-answer">
+Not always. CAGR shows consistent annual growth, whereas IRR accounts for multiple inflows and outflows and their timing, making it more accurate for project evaluation.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can IRR be negative?
+<div class="faq-answer">
+Yes, if your investment or project results in net losses over time, IRR will be negative, indicating an average annual decline.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is IRR affected by cash flow timing?
+<div class="faq-answer">
+Absolutely. The timing of inflows and outflows directly affects IRR. Early returns increase IRR, while delayed returns lower it.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+How to interpret IRR values?
+<div class="faq-answer">
+An IRR higher than your required rate of return suggests the investment is favorable, while a lower IRR indicates caution.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can IRR predict future returns?
+<div class="faq-answer">
+IRR reflects historical cash flows and helps in analysis but should not be solely relied upon for future predictions.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is IRR used in real estate?
+<div class="faq-answer">
+Yes, IRR is widely used in real estate to evaluate property investment projects with multiple cash inflows and outflows over time.
+</div>
+</div>
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is IRR important for project finance?
+<div class="faq-answer">
+IRR helps finance managers and investors assess the efficiency of projects and make informed allocation decisions.
+</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculateIRR(){
+let initial=parseFloat(document.getElementById("initial").value);
+let cashflows=document.getElementById("cashflows").value.split(',').map(Number);
+
+let irr=0.1;
+let maxIter=1000;
+let tol=1e-6;
+for(let i=0;i<maxIter;i++){
+let npv= -initial;
+let dnpv=0;
+for(let t=0;t<cashflows.length;t++){
+npv+=cashflows[t]/Math.pow(1+irr,t+1);
+dnpv+=-(t+1)*cashflows[t]/Math.pow(1+irr,t+2);
+}
+let newIrr=irr - npv/dnpv;
+if(Math.abs(newIrr-irr)<tol){irr=newIrr;break;}
+irr=newIrr;
+}
+
+document.getElementById("result").innerText=(irr*100).toFixed(2);
+}
+
+</script>
+
+</body>
+</html>

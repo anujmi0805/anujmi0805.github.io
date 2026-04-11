@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inflation Adjusted SIP Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="what-is-inflation.html">What is Inflation</a>
+<a href="inflation-impact-on-investment.html">Inflation Impact on Investment</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="inflation-system.html">Inflation System</a> >
+Inflation Adjusted SIP
+</div>
+
+<div class="container">
+
+<h1>Inflation Adjusted SIP Calculator</h1>
+<p>Understand the real value of your SIP investments after adjusting for inflation and make smarter decisions for your long-term financial goals.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Investment (₹)</label>
+<input id="amount" type="number" value="5000">
+
+<label>Return Rate (%)</label>
+<input id="rate" type="number" value="12">
+
+<label>Inflation Rate (%)</label>
+<input id="inflation" type="number" value="6">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="10">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Actual Value (After Inflation)</p>
+<div class="green">₹ <span id="real"></span></div>
+</div>
+
+<!-- CHARTS -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>What is Inflation Adjusted SIP?</h2>
+<p>
+Inflation-adjusted SIP reflects the real purchasing power of your investments. While nominal returns may appear high, inflation gradually erodes the value of money over time. This calculator helps you understand what your future wealth actually means in today's terms.
+</p>
+</div>
+
+<div class="card">
+<h2>Why It Matters</h2>
+<p>
+Ignoring inflation can lead to overestimating your financial goals. A return of 12% may seem strong, but if inflation is 6%, your real return is significantly lower. Understanding this gap is essential for accurate financial planning.
+</p>
+</div>
+
+<div class="card">
+<h2>Example</h2>
+<p>
+If your SIP grows to ₹10 lakh in the future, inflation may reduce its real value to ₹6–7 lakh in today’s purchasing power. This highlights why inflation-adjusted planning is critical.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+<a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-inflation.html">What is Inflation</a>
+<a href="inflation-impact-on-investment.html">Inflation Impact on Investment</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="asset-allocation-calculator.html">Asset Allocation Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="retirement-stress-test.html">Retirement Stress Test</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is inflation adjusted return?
+<div class="faq-answer">
+It represents the real return after subtracting the impact of inflation from nominal gains, helping you assess the true value of your investments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why should I consider inflation?
+<div class="faq-answer">
+Inflation reduces purchasing power, meaning your future money will buy less than today. Ignoring it can cause overestimation of savings and retirement planning.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can SIP beat inflation?
+<div class="faq-answer">
+Yes, equity-based SIPs historically outperform inflation over long periods, making them an effective tool to preserve and grow wealth.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is a good real return?
+<div class="faq-answer">
+A real return of 3–5% above inflation is generally considered healthy for long-term wealth accumulation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I increase my SIP over time?
+<div class="faq-answer">
+Yes, gradually increasing your SIP helps counter inflation and amplifies your long-term financial growth.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation affect long-term goals?
+<div class="faq-answer">
+Absolutely. It significantly impacts goals like retirement, education funds, and wealth planning, so planning with inflation in mind is essential.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How to plan investments with inflation?
+<div class="faq-answer">
+Always calculate inflation-adjusted returns, monitor portfolio performance, and revise your goals periodically to stay on track.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can inflation impact emergency funds?
+<div class="faq-answer">
+Yes, even emergency funds can lose value over time if inflation is ignored, so allocate and review them carefully.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is it important for all types of SIPs?
+<div class="faq-answer">
+Yes, whether equity, debt, or hybrid SIPs, adjusting for inflation ensures realistic growth expectations across your portfolio.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let P=document.getElementById("amount").value;
+let r=document.getElementById("rate").value/100/12;
+let i=document.getElementById("inflation").value/100;
+let n=document.getElementById("time").value*12;
+
+let FV=P*((Math.pow(1+r,n)-1)/r)*(1+r);
+let real=FV/Math.pow(1+i, n/12);
+
+document.getElementById("real").innerText=Math.round(real).toLocaleString('en-IN');
+
+let invested=P*n;
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Invested","Real Value"],datasets:[{data:[invested,real]}]}
+});
+
+let data=[];
+for(let t=1;t<=n;t++){
+let val=P*((Math.pow(1+r,t)-1)/r)*(1+r);
+let realVal=val/Math.pow(1+i,t/12);
+data.push(realVal);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Real Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

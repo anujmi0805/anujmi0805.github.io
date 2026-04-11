@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPF vs FD | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.section p{
+line-height:1.7;
+color:#374151;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{
+font-size:20px;font-weight:bold;
+}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>    
+<a href="finance.html">Finance</a>    
+<a href="fd-calculator.html">FD Calculator</a>    
+<a href="rd-calculator.html">RD Calculator</a>    
+<a href="ppf-calculator.html">PPF Calculator</a>    
+<a href="epf-calculator.html">EPF Calculator</a>    
+<a href="fd-vs-rd.html">FD vs RD</a>  
+<a href="epf-vs-ppf.html">EPF vs PPF</a>    
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="tax-savings-system.html">Tax & Savings System</a> >
+PPF vs FD
+</div>
+
+<div class="container">
+
+<h1>PPF vs FD: Which Investment is Better?</h1>
+<p>
+Choosing between PPF and FD depends on your financial goals, time horizon, and tax planning. Both are secure instruments, but each serves different purposes and offers unique advantages for investors at various stages of life.
+</p>
+
+<div class="card section">
+<h2>What is PPF?</h2>
+<p>
+PPF (Public Provident Fund) is a long-term government-backed investment that encourages disciplined saving over a tenure of 15 years. It provides tax-free returns, making it a popular choice for individuals looking to grow wealth in a stable and secure manner.
+</p>
+</div>
+
+<div class="card section">
+<h2>What is FD?</h2>
+<p>
+FD (Fixed Deposit) is an investment where you deposit a lump sum for a fixed period and earn a predetermined interest. It provides guaranteed returns and higher liquidity compared to long-term PPF, making it suitable for short-term goals or emergency funds.
+</p>
+</div>
+
+<div class="card section">
+<h2>Key Differences</h2>
+<p>
+PPF focuses on long-term growth and tax benefits, while FD offers flexibility, short-term stability, and predictable returns. Your choice should align with your priorities: tax advantage vs immediate accessibility.
+</p>
+</div>
+
+<div class="card section">
+<h2>Which Should You Choose?</h2>
+<p>
+For long-term wealth creation and tax-free benefits, PPF is ideal. If liquidity, short-term planning, or fixed returns are your main concern, FD is more suitable. Many investors use both to balance security, growth, and tax planning effectively.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="rd-calculator.html">RD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="inflation-calculator.html">Inflation</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="investment-system.html">Investment System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is PPF better than FD?
+<div class="faq-answer">
+PPF is better for long-term tax-free growth, while FD is more suitable for short-term liquidity and guaranteed returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is FD taxable?
+<div class="faq-answer">
+Yes, the interest earned from an FD is taxable according to your income tax slab, whereas PPF returns are completely tax-free.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I invest in both?
+<div class="faq-answer">
+Absolutely. Combining PPF and FD allows you to balance tax efficiency with liquidity, creating a more flexible investment plan.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the minimum investment for PPF and FD?
+<div class="faq-answer">
+PPF requires a minimum annual deposit of ₹500, while FD can start from as low as ₹1,000 depending on the bank or institution.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I withdraw early from PPF or FD?
+<div class="faq-answer">
+FD allows premature withdrawal after a lock-in period, usually with some penalty, while PPF allows partial withdrawal after the 5th financial year, under specific conditions.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which one offers better returns?
+<div class="faq-answer">
+PPF typically gives moderate but tax-free long-term returns, whereas FD offers fixed interest that can be slightly higher but taxable. Your choice depends on your goal horizon.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is my investment in FD or PPF safe?
+<div class="faq-answer">
+Both are backed by the government or reputed banks, making them very low-risk investments for capital preservation and steady growth.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+</script>
+
+</body>
+</html>

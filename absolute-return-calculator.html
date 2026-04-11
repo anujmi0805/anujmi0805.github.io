@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absolute Return Calculator | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* H1 STRIP */
+.title-strip{
+background:var(--primary);
+color:white;
+padding:18px 20px;
+font-size:24px;
+font-weight:bold;
+}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.8;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;line-height:1.7;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="returns-system.html">Returns System</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="what-is-irr.html">What is IRR</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+Absolute Return Calculator
+</div>
+
+<!-- TITLE STRIP -->
+<div class="title-strip">
+Absolute Return Calculator
+</div>
+
+<div class="container">
+
+<p>
+The Absolute Return Calculator helps you measure the total gain or loss of an investment without considering time. It provides a straightforward way to understand how much your investment has grown in absolute terms, making it useful for quick evaluation and comparison.
+</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Initial Investment (₹)</label>
+<input id="start" type="number" value="100000">
+
+<label>Final Value (₹)</label>
+<input id="end" type="number" value="150000">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Total Absolute Return</p>
+<div class="green"><span id="result">50.00</span> %</div>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>What is Absolute Return?</h2>
+<p>
+Absolute return represents the total percentage change in the value of an investment from its initial amount to its final value. It does not take into account how long the investment was held, which makes it simple and easy to understand for beginners.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why Absolute Return Matters</h2>
+<p>
+It provides a quick snapshot of performance. When comparing investments over the same time period, absolute return becomes a useful metric. However, when time varies, it should be combined with CAGR or XIRR for better clarity.
+</p>
+</div>
+
+<div class="card section">
+<h2>Where It Fits in Investment Analysis</h2>
+<p>
+Absolute return is often used as the first step in evaluating performance. Once you understand total growth, you can move deeper into time-adjusted metrics like CAGR or XIRR to make more informed decisions.
+</p>
+</div>
+
+<div class="card section">
+<h2>Example</h2>
+<p>
+If you invest ₹1,00,000 and it becomes ₹1,50,000, your absolute return is 50%. This means your investment has grown by half its original value, regardless of whether it took 1 year or 5 years.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="inflation-impact-on-investment.html">Inflation Impact</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+<a href="cost-of-delay.html">Cost of Delay</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is absolute return in simple terms?
+<div class="faq-answer">
+It is the total percentage gain or loss from your investment. It simply shows how much your money has increased or decreased without considering time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is absolute return useful for long-term investing?
+<div class="faq-answer">
+It gives a basic idea, but for long-term decisions, metrics like CAGR or XIRR are more useful because they consider time and compounding.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can absolute return be negative?
+<div class="faq-answer">
+Yes, if your investment loses value, the result will be negative, indicating a loss.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does it consider compounding?
+<div class="faq-answer">
+No, absolute return does not consider compounding or time. It only shows total change in value.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+When should I use absolute return?
+<div class="faq-answer">
+It is best used for quick comparisons or when evaluating investments held over the same duration.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is it different from ROI?
+<div class="faq-answer">
+ROI and absolute return are similar, but ROI can sometimes include additional factors like costs, whereas absolute return focuses purely on value change.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why do professionals use other metrics?
+<div class="faq-answer">
+Because time plays a major role in investments. Metrics like CAGR and XIRR provide a more realistic performance picture.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is it good for comparing different investments?
+<div class="faq-answer">
+Only if the investments are held for the same duration. Otherwise, time-adjusted metrics are better.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What should I check after absolute return?
+<div class="faq-answer">
+You should analyze CAGR or XIRR to understand how efficiently your investment grew over time.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+  <div class="brand">WeDA</div>
+  <div>beyond the thought...</div>
+</div>
+
+<div>
+
+  <div class="footer-column">
+    <h3>Explore</h3>
+    <a href="index.html">WeDA's Home</a>
+    <a href="finance.html">Finance</a>
+    <a href="investment-system.html">Investment System</a>
+    <a href="loan-system.html">Loan System</a>
+    <a href="returns-system.html">Returns System</a>
+    <a href="inflation-system.html">Inflation System</a>
+    <a href="portfolio-system.html">Portfolio System</a>
+    <a href="tax-savings-system.html">Tax & Savings System</a>
+    <a href="retirement-system.html">Retirement System</a>
+    <a href="financial-health-system.html">Financial Health System</a>
+  </div>
+    
+  <div class="footer-column">
+    <h3>Company</h3>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms and Conditions</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculate(){
+let start=document.getElementById("start").value;
+let end=document.getElementById("end").value;
+
+let result=((end-start)/start)*100;
+
+document.getElementById("result").innerText=result.toFixed(2);
+}
+</script>
+
+</body>
+</html>

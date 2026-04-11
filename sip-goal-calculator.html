@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Goal Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+  <div class="close-btn" onclick="closeDrawer()">✕</div>
+  <a href="index.html">Home</a>
+  <a href="finance.html">Finance</a>
+  <a href="investment-system.html">Investment System</a>
+  <a href="sip-calculator.html">SIP Calculator</a>
+  <a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+  <a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+  <a href="what-is-sip.html">What is SIP</a>
+  <a href="sip-duration-calculator.html">SIP Duration Calculator</a>
+  <a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="investment-system.html">Investment System</a> >
+SIP Goal Calculator
+</div>
+
+<div class="container">
+
+<h1>SIP Goal Calculator</h1>
+<p>Calculate how much you need to invest monthly to achieve your financial goal.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Target Amount (₹)</label>
+<input id="goal" type="number" value="1000000">
+
+<label>Expected Return (%)</label>
+<input id="rate" type="number" value="12">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="10">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Required Monthly SIP</p>
+<div class="green">₹ <span id="sip"></span></div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>What is SIP Goal Planning?</h2>
+<p>
+SIP goal planning helps you determine how much you need to invest regularly to reach a specific financial target. Whether it's buying a house, funding education, or building wealth, this approach ensures clarity and discipline in investing.
+</p>
+</div>
+
+<div class="card">
+<h2>How It Works</h2>
+<p>
+You define a target amount, expected return, and time period. The calculator then determines the monthly investment required to reach that goal through compounding.
+</p>
+</div>
+
+<div class="card">
+<h2>Why It Matters</h2>
+<p>
+Without a clear goal, investing becomes directionless. Goal-based SIP ensures every investment has a purpose, improving financial discipline and outcomes.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="step-up-sip-calculator.html">Step-up SIP</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="sip-duration-calculator.html">SIP Duration Calculator</a>
+<a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is SIP goal calculator?
+<div class="faq-answer">
+It helps you determine the monthly investment required to achieve a specific financial goal within a fixed time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is return guaranteed?
+<div class="faq-answer">
+No, returns depend on market performance. The calculator uses estimated returns for planning purposes.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I change SIP later?
+<div class="faq-answer">
+Yes, SIP is flexible and can be increased, decreased, or stopped anytime to suit your financial situation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What if I invest more?
+<div class="faq-answer">
+Investing more than calculated allows you to reach your goal faster or achieve a higher final value.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is SIP suitable for long-term goals?
+<div class="faq-answer">
+Yes, SIP is ideal for long-term wealth creation because of the power of compounding.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation affect my goal?
+<div class="faq-answer">
+Yes, always consider inflation as it reduces the real value of money over time, which impacts long-term planning.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I increase SIP yearly?
+<div class="faq-answer">
+Increasing your SIP annually helps align it with income growth and allows you to achieve goals faster.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+  <div class="brand">WeDA</div>
+  <div>beyond the thought...</div>
+</div>
+
+<div>
+  <div class="footer-column">
+    <h3>Explore</h3>
+    <a href="index.html">WeDA's Home</a>
+    <a href="finance.html">Finance</a>
+    <a href="investment-system.html">Investment System</a>
+    <a href="loan-system.html">Loan System</a>
+    <a href="returns-system.html">Returns System</a>
+    <a href="inflation-system.html">Inflation System</a>
+    <a href="portfolio-system.html">Portfolio System</a>
+    <a href="tax-savings-system.html">Tax & Savings System</a>
+    <a href="retirement-system.html">Retirement System</a>
+    <a href="financial-health-system.html">Financial Health System</a>
+  </div>
+  
+  <div class="footer-column">
+    <h3>Company</h3>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms and Conditions </a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+  
+</div>
+
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let chart;
+
+function calculate(){
+let FV=document.getElementById("goal").value;
+let r=document.getElementById("rate").value/100/12;
+let n=document.getElementById("time").value*12;
+
+let SIP=FV / (((Math.pow(1+r,n)-1)/r)*(1+r));
+
+document.getElementById("sip").innerText=Math.round(SIP).toLocaleString('en-IN');
+
+let data=[];
+for(let i=1;i<=n;i++){
+let val=SIP*((Math.pow(1+r,i)-1)/r)*(1+r);
+data.push(val);
+}
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Goal Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Duration Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+<a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+<a href="what-is-sip.html">What is SIP</a>
+<a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="investment-system.html">Investment System</a> >
+SIP Duration Calculator
+</div>
+
+<div class="container">
+
+<h1>SIP Duration Calculator</h1>
+<p>Calculate the estimated time required to reach your investment goal using SIP. This tool helps you plan effectively and understand how monthly investments grow over time.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Investment (₹)</label>
+<input id="amount" type="number" value="5000">
+
+<label>Target Amount (₹)</label>
+<input id="goal" type="number" value="1000000">
+
+<label>Expected Return (%)</label>
+<input id="rate" type="number" value="12">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Estimated Time Required</p>
+<div class="green"><span id="years"></span> Years</div>
+</div>
+
+<!-- DOUGHNUT -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<!-- LINE -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>What is SIP Duration?</h2>
+<p>
+SIP duration represents the number of years or months needed to achieve your financial target through regular SIP contributions, factoring in compounding and expected returns.
+</p>
+</div>
+
+<div class="card">
+<h2>Why It Matters</h2>
+<p>
+Understanding SIP duration allows you to evaluate if your investment strategy aligns with your goals. It helps in adjusting monthly contributions, return expectations, and investment timelines accordingly.
+</p>
+</div>
+
+<div class="card">
+<h2>Example</h2>
+<p>
+For instance, if you invest ₹5,000 monthly with an expected return of 12%, it may take approximately 13–14 years to reach ₹10 lakh. This demonstrates the power of compounding and long-term planning.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="sip-goal-calculator.html">SIP Goal</a>
+<a href="step-up-sip-calculator.html">Step-up SIP</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+<a href="what-is-sip.html">What is SIP</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="tax-savings-system.html">Tax & Savings</a>
+<a href="retirement-system.html">Retirement</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is SIP duration?
+<div class="faq-answer">
+SIP duration is the estimated time required to reach a financial goal through regular systematic investments in mutual funds or similar instruments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I reduce the duration of my SIP?
+<div class="faq-answer">
+Yes, by increasing the monthly SIP amount or investing in options with potentially higher returns, you can shorten the duration needed to reach your goal.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does SIP duration remain constant?
+<div class="faq-answer">
+No, the duration depends on actual returns and contributions. Market fluctuations may alter the estimated time.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How does inflation affect SIP duration?
+<div class="faq-answer">
+Inflation reduces the real value of money, which may increase the time required to achieve your financial goals in real terms.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What if returns change during the period?
+<div class="faq-answer">
+If returns are lower or higher than expected, the duration to reach your target will adjust accordingly.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is SIP suitable for long-term goals?
+<div class="faq-answer">
+Yes, SIP is ideal for long-term wealth creation due to the benefits of compounding and disciplined investing.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I pause or increase my SIP anytime?
+<div class="faq-answer">
+Yes, SIPs are flexible. You can pause, increase, or adjust your contributions as per your changing financial needs.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the impact of a higher SIP contribution?
+<div class="faq-answer">
+Higher monthly contributions shorten the time needed to reach your goal and increase the final corpus accumulated.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How should I plan SIP for multiple goals?
+<div class="faq-answer">
+You can allocate separate SIPs for different goals, track each goal’s duration, and adjust amounts to meet timelines efficiently.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions </a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let P=document.getElementById("amount").value;
+let FV=document.getElementById("goal").value;
+let r=document.getElementById("rate").value/100/12;
+
+let n=Math.log((FV*r/P)+1)/Math.log(1+r);
+let months=Math.ceil(n);
+let years=(months/12).toFixed(1);
+
+document.getElementById("years").innerText=years;
+
+let invested=P*months;
+let returns=FV-invested;
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Invested","Returns"],datasets:[{data:[invested,returns]}]}
+});
+
+let data=[];
+let total=0;
+for(let i=1;i<=months;i++){
+total=P*((Math.pow(1+r,i)-1)/r)*(1+r);
+data.push(total);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

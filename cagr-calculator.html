@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAGR Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* H1 STRAP */
+.page-title{
+background:var(--primary);
+color:white;
+padding:12px 20px;
+font-size:22px;
+font-weight:bold;
+}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{
+color:#374151;
+line-height:1.8;
+margin-bottom:15px;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return</a>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="rolling-return-explained.html">Rolling Return</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="returns-system.html">Returns System</a> >
+CAGR Calculator
+</div>
+
+<!-- H1 -->
+<div class="page-title">CAGR Calculator</div>
+
+<div class="container">
+
+<p>
+The CAGR calculator helps you understand the real annual growth rate of your investment by factoring in the power of compounding. Instead of just looking at how much your money has grown in total, CAGR tells you how efficiently your investment has grown every year. This makes it one of the most important tools for serious investors who want clarity, consistency, and better decision-making.
+</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Initial Investment (₹)</label>
+<input id="start" type="number" value="100000">
+
+<label>Final Value (₹)</label>
+<input id="end" type="number" value="200000">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="5">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Annual Growth Rate</p>
+<div class="green"><span id="result"></span> %</div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<canvas id="chart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>What is CAGR?</h2>
+<p>
+CAGR, or Compound Annual Growth Rate, represents the average yearly rate at which an investment grows over a specific period. It assumes that the investment grows at a steady rate every year, even though in reality markets fluctuate.
+</p>
+<p>
+This concept is powerful because it converts uneven, volatile returns into a smooth annual percentage, allowing investors to compare different investments easily. Whether you are investing in stocks, mutual funds, or long-term assets, CAGR gives you a consistent way to measure performance.
+</p>
+</div>
+
+<div class="card section">
+<h2>How CAGR Works</h2>
+<p>
+CAGR works by taking the beginning value of your investment, the ending value, and the number of years between them. It then calculates the annual growth rate required to move from the starting value to the ending value.
+</p>
+<p>
+For example, if your investment doubled in 5 years, CAGR will not simply say 100% growth. Instead, it will break that growth into a yearly percentage, giving you a much more realistic view of performance.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why CAGR Matters for Investors</h2>
+<p>
+CAGR is widely used by professionals because it removes confusion caused by market volatility. Instead of reacting to short-term ups and downs, it helps you focus on long-term consistency.
+</p>
+<p>
+It is especially useful when comparing multiple investment options. For example, if one investment grew faster but took longer, CAGR helps normalize the comparison.
+</p>
+</div>
+
+<div class="card section">
+<h2>Real Life Example</h2>
+<p>
+Imagine you invested ₹1,00,000 and after 5 years it became ₹2,00,000. At first glance, this looks like a 100% return. But CAGR tells you the annual growth rate required to reach that number, which gives a much deeper insight.
+</p>
+<p>
+This allows you to compare it with other investments like SIPs, mutual funds, or even fixed deposits on a fair basis.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="real-return-calculator.html">Real Return Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="what-is-cagr.html">What is CAGR</a>
+<a href="cagr-vs-roi.html">CAGR vs ROI</a>
+<a href="what-is-xirr.html">What is XIRR</a>
+<a href="what-is-irr.html">What is IRR</a>
+<a href="rolling-return-explained.html">Rolling Returns</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="inflation-vs-return.html">Inflation vs Return</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">What is CAGR?<div class="faq-answer">CAGR is the average annual growth rate of an investment over time.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Why is CAGR important?<div class="faq-answer">It helps compare investments fairly.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Is CAGR accurate?<div class="faq-answer">It simplifies real returns.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Can CAGR be negative?<div class="faq-answer">Yes, if investment loses value.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Does CAGR include compounding?<div class="faq-answer">Yes.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">What is a good CAGR?<div class="faq-answer">Depends on investment type.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Is CAGR useful short-term?<div class="faq-answer">Less useful.</div></div>
+<div class="faq-box" onclick="toggleFAQ(this)">Can CAGR predict future?<div class="faq-answer">No.</div></div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let chart;
+
+function calculate(){
+let start=document.getElementById("start").value;
+let end=document.getElementById("end").value;
+let time=document.getElementById("time").value;
+
+let cagr=(Math.pow(end/start,1/time)-1)*100;
+
+document.getElementById("result").innerText=cagr.toFixed(2);
+
+let data=[];
+for(let i=1;i<=time;i++){
+data.push(start*Math.pow((1+cagr/100),i));
+}
+
+if(chart) chart.destroy();
+chart=new Chart(document.getElementById("chart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

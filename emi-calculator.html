@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMI Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* H1 STRIP */
+.title-strip{
+background:var(--primary);
+color:white;
+padding:18px 20px;
+font-size:26px;
+font-weight:bold;
+}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.8;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;line-height:1.7;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="what-is-emi.html">What is EMI</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="loan-system.html">Loan System</a> >
+EMI Calculator
+</div>
+
+<!-- TITLE -->
+<div class="title-strip">
+EMI Calculator
+</div>
+
+<div class="container">
+
+
+
+<!-- INPUT -->
+<div class="card">
+<label>Loan Amount (₹)</label>
+<input id="loan" type="number" value="500000">
+
+<label>Interest Rate (%)</label>
+<input id="rate" type="number" value="10">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="5">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Monthly EMI</p>
+<div class="green">₹ <span id="emi"></span></div>
+<p>Total Interest: ₹ <span id="interest"></span></p>
+<p>Total Payment: ₹ <span id="total"></span></p>
+</div>
+
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Understanding EMI Structure</h2>
+<p>
+Managing a loan without clarity can lead to long-term financial stress. This EMI calculator is designed to give you a complete picture of your loan before you commit to it. Instead of just showing a monthly number, it helps you understand the deeper structure — how much you are actually paying in interest, how your balance reduces over time, and how your repayment behaves across the full tenure.
+</p>
+<p>
+EMI, or Equated Monthly Installment, is not just a fixed payment — it is a structured financial mechanism. Every EMI you pay consists of two parts: interest and principal repayment. In the early stage of a loan, a major portion goes toward interest. As time progresses, the principal component increases, gradually reducing your outstanding balance.
+</p>
+<p>
+This structured transition is important because it directly affects how much total interest you end up paying. Understanding this pattern helps you make smarter decisions like prepayment or tenure adjustment.
+</p>
+</div>
+
+<div class="card section">
+<h2>Why This Calculator Matters</h2>
+<p>
+Most people take loans based only on affordability of EMI, without understanding total cost. This is where mistakes happen. A slightly longer tenure may feel comfortable monthly but can significantly increase your total repayment.
+</p>
+<p>
+This calculator helps you visualize both — short-term comfort and long-term cost — so you can make a balanced decision aligned with your financial stability.
+</p>
+</div>
+
+<div class="card section">
+<h2>Practical Insight</h2>
+<p>
+A good financial approach is to not just aim for the lowest EMI, but for an optimized EMI. One that fits within your income comfortably while minimizing total interest. This balance ensures you don’t overpay unnecessarily while still maintaining liquidity.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="what-is-emi.html">What is EMI</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">WeDA Home</a>
+<a href="finance.html">Finance Overview</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is EMI in simple terms?
+<div class="faq-answer">
+EMI is a fixed monthly payment used to repay a loan over time. It includes both interest and principal, making repayment structured and predictable.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does EMI remain constant?
+<div class="faq-answer">
+In fixed-rate loans, EMI remains constant. In floating-rate loans, EMI or tenure may change depending on interest rate movements.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I reduce my EMI?
+<div class="faq-answer">
+Yes, EMI can be reduced by increasing tenure, refinancing your loan, or negotiating better interest rates.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is lower EMI always beneficial?
+<div class="faq-answer">
+Lower EMI improves short-term affordability but often increases total interest. A balanced approach is always better.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens if I miss EMI?
+<div class="faq-answer">
+Missing EMI leads to penalties and negatively impacts your credit score, affecting future loan approvals.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I prepay loan?
+<div class="faq-answer">
+Yes, prepayment reduces total interest burden and can either reduce EMI or shorten loan tenure.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How much EMI is safe?
+<div class="faq-answer">
+Ideally, your total EMI obligations should not exceed 30–40% of your monthly income to maintain financial balance.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does EMI include all charges?
+<div class="faq-answer">
+No, EMI includes only principal and interest. Additional charges like processing fees are separate.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is EMI higher for shorter tenure?
+<div class="faq-answer">
+Because the repayment period is shorter, the monthly burden increases, but overall interest paid decreases.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+  <div class="brand">WeDA</div>
+  <div>beyond the thought...</div>
+</div>
+
+<div>
+
+  <div class="footer-column">
+    <h3>Explore</h3>
+    <a href="index.html">WeDA's Home</a>
+    <a href="finance.html">Finance</a>
+    <a href="investment-system.html">Investment System</a>
+    <a href="loan-system.html">Loan System</a>
+    <a href="returns-system.html">Returns System</a>
+    <a href="inflation-system.html">Inflation System</a>
+    <a href="portfolio-system.html">Portfolio System</a>
+    <a href="tax-savings-system.html">Tax & Savings System</a>
+    <a href="retirement-system.html">Retirement System</a>
+    <a href="financial-health-system.html">Financial Health System</a>
+  </div>
+  
+  <div class="footer-column">
+    <h3>Company</h3>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms and Conditions</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let P=document.getElementById("loan").value;
+let r=document.getElementById("rate").value/100/12;
+let n=document.getElementById("time").value*12;
+
+let emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+let total=emi*n;
+let interest=total-P;
+
+document.getElementById("emi").innerText=Math.round(emi).toLocaleString('en-IN');
+document.getElementById("interest").innerText=Math.round(interest).toLocaleString('en-IN');
+document.getElementById("total").innerText=Math.round(total).toLocaleString('en-IN');
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Principal","Interest"],datasets:[{data:[P,interest]}]}
+});
+
+let balance=P,data=[];
+for(let i=1;i<=n;i++){
+balance = balance*(1+r) - emi;
+data.push(balance>0?balance:0);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Remaining Balance",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

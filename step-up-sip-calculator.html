@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step-up SIP Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+/* DRAWER */
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:40px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer-column{min-width:150px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:15px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer" class="drawer">
+  <div class="close-btn" onclick="closeDrawer()">✕</div>
+  <a href="index.html">Home</a>
+  <a href="finance.html">Finance</a>
+  <a href="investment-system.html">Investment System</a>
+  <a href="sip-calculator.html">SIP Calculator</a>
+  <a href="lumpsum-calculator.html">Lumpsum Calculator</a>
+  <a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+  <a href="sip-vs-lumpsum.html">SIP vs Lumpsum</a>
+  <a href="what-is-sip.html">What is SIP</a>
+  <a href="sip-duration-calculator.html">SIP Duration Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="investment-system.html">Investment System</a> >
+Step-up SIP Calculator
+</div>
+
+<div class="container">
+
+<h1>Step-up SIP Calculator</h1>
+<p>Calculate how gradually increasing your SIP each year can significantly boost your wealth over the long term. Plan smarter investments aligned with your income growth.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Monthly Investment (₹)</label>
+<input id="amount" type="number" value="5000">
+
+<label>Annual Increase (%)</label>
+<input id="increase" type="number" value="10">
+
+<label>Return Rate (%)</label>
+<input id="rate" type="number" value="12">
+
+<label>Time (Years)</label>
+<input id="time" type="number" value="10">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Total Investment: ₹ <span id="invested"></span></p>
+<p>Estimated Returns: ₹ <span id="returns"></span></p>
+<p>Total Value</p>
+<div class="green">₹ <span id="total"></span></div>
+</div>
+
+<!-- DOUGHNUT -->
+<div class="card">
+<canvas id="pieChart"></canvas>
+</div>
+
+<!-- LINE -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>What is Step-up SIP?</h2>
+<p>
+Step-up SIP is a systematic approach where you increase your monthly investment periodically, usually annually. It aligns your investments with your income growth and helps you accumulate more wealth than a fixed SIP.
+</p>
+</div>
+
+<div class="card">
+<h2>Why It Matters</h2>
+<p>
+When your income grows, a step-up strategy ensures that your investments also grow, maximizing your long-term wealth potential. It’s an effective way to stay on track with financial goals like retirement or major life events.
+</p>
+</div>
+
+<div class="card">
+<h2>Example</h2>
+<p>
+For instance, if you start with ₹5,000 per month and increase it by 10% every year, your corpus grows faster than a fixed SIP, even with the same return rate. This strategy leverages the power of compounding effectively.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="sip-goal-calculator.html">SIP Goal</a>
+<a href="retirement-calculator.html">Retirement</a>
+<a href="inflation-calculator.html">Inflation</a>
+<a href="lumpsum-calculator.html">Lumpsum</a>
+<a href="cagr-calculator.html">CAGR</a>
+<a href="xirr-calculator.html">XIRR</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="tax-savings-system.html">Tax & Savings</a>
+<a href="financial-health-system.html">Financial Health</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is step-up SIP?
+<div class="faq-answer">
+Step-up SIP is a method of gradually increasing your SIP amount annually to match your income growth and maximize returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is step-up SIP better than regular SIP?
+<div class="faq-answer">
+Yes. Increasing your SIP periodically boosts your investment corpus faster than a fixed SIP, even with the same return rate.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How much should I increase SIP each year?
+<div class="faq-answer">
+A general guideline is 5–15% annually, depending on your expected income growth and financial goals.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does step-up SIP reduce risk?
+<div class="faq-answer">
+It doesn’t directly reduce investment risk but significantly increases potential long-term wealth.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Who should consider step-up SIP?
+<div class="faq-answer">
+Individuals expecting their income to grow over time, and aiming for long-term goals like retirement or wealth creation.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I pause the step-up feature?
+<div class="faq-answer">
+Yes. You can pause or stop increasing your SIP anytime if your financial situation changes.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is it suitable for retirement planning?
+<div class="faq-answer">
+Absolutely. Gradually increasing your SIP helps you accumulate a larger corpus for retirement.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Will this strategy work with mutual funds?
+<div class="faq-answer">
+Yes, step-up SIP is applicable to mutual fund investments and other recurring investment instruments.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How do I start step-up SIP?
+<div class="faq-answer">
+Begin with a fixed monthly investment and decide an annual increment percentage based on your income and goals.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  
+  <div>
+    <div class="brand">WeDA</div>
+    <div>beyond the thought...</div>
+  </div>
+  
+  <div>
+    <div class="footer-column">
+      <h3>Explore</h3>
+      <a href="index.html">WeDA's Home</a>
+      <a href="finance.html">Finance</a>
+      <a href="investment-system.html">Investment System</a>
+      <a href="loan-system.html">Loan System</a>
+      <a href="returns-system.html">Returns System</a>
+      <a href="inflation-system.html">Inflation System</a>
+      <a href="portfolio-system.html">Portfolio System</a>
+      <a href="tax-savings-system.html">Tax & Savings System</a>
+      <a href="retirement-system.html">Retirement System</a>
+      <a href="financial-health-system.html">Financial Health System</a>
+      
+    </div>
+    
+    <div class="footer-column">
+      <h3>Company</h3>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms and Conditions</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="bottom">
+  © WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let pie,line;
+
+function calculate(){
+let P=document.getElementById("amount").value;
+let inc=document.getElementById("increase").value/100;
+let r=document.getElementById("rate").value/100/12;
+let years=document.getElementById("time").value;
+
+let total=0,invested=0;
+let data=[];
+
+for(let y=1;y<=years;y++){
+let monthly=P*Math.pow(1+inc,y-1);
+for(let m=1;m<=12;m++){
+invested+=monthly;
+total=total*(1+r)+monthly;
+data.push(total);
+}
+}
+
+let returns=total-invested;
+
+document.getElementById("invested").innerText=Math.round(invested).toLocaleString('en-IN');
+document.getElementById("returns").innerText=Math.round(returns).toLocaleString('en-IN');
+document.getElementById("total").innerText=Math.round(total).toLocaleString('en-IN');
+
+if(pie) pie.destroy();
+pie=new Chart(document.getElementById("pieChart"),{
+type:"doughnut",
+data:{labels:["Invested","Returns"],datasets:[{data:[invested,returns]}]}
+});
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Growth",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

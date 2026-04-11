@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Stress Test | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.6;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="safe-withdrawal-rate.html">Safe Withdrawal Rate</a>
+<a href="sequence-of-return-risk.html">Sequence of Return Risk</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="retirement-system.html">Retirement System</a> >
+Retirement Stress Test
+</div>
+
+<div class="container">
+
+<h1>Retirement Stress Test</h1>
+<p>This calculator helps you test whether your retirement corpus is robust enough to handle expenses, inflation, and investment fluctuations over time. It subtracts your yearly withdrawals while compounding your savings to provide a realistic picture of financial stability in retirement.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Current Age</label>
+<input id="age" type="number" value="30">
+
+<label>Retirement Age</label>
+<input id="retire" type="number" value="60">
+
+<label>Retirement Corpus (₹)</label>
+<input id="corpus" type="number" value="1000000">
+
+<label>Annual Withdrawal (₹)</label>
+<input id="withdrawal" type="number" value="60000">
+
+<label>Expected Return (%)</label>
+<input id="rate" type="number" value="8">
+
+<button onclick="calculate()">Run Stress Test</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Corpus After Retirement</p>
+<div class="green">₹ <span id="finalCorpus"></span></div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>Why a Stress Test Matters</h2>
+<p>
+Many retirees underestimate how withdrawals, inflation, and market volatility affect their corpus. This stress test simulates real-world scenarios, helping you adjust savings, withdrawals, or investment strategies proactively.
+</p>
+</div>
+
+<div class="card">
+<h2>How to Use the Calculator</h2>
+<p>
+Enter your current age, expected retirement age, total retirement corpus, annual withdrawal, and estimated annual return. Click "Run Stress Test" to see if your corpus can sustain your retirement lifestyle across the chosen period.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="sip-goal-calculator.html">SIP Goal Calculator</a>
+<a href="step-up-sip-calculator.html">Step-up SIP Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="retirement-system.html">Retirement System</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="financial-health-score.html">Finance Health Score</a>
+<a href="tax-saving-investment-calculator.html">Tax Saving Calculator</a>
+<a href="finance.html">Finance System</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="asset-allocation-calculator.html">Asset Allocation Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is a retirement stress test?
+<div class="faq-answer">
+A retirement stress test simulates withdrawals, inflation, and investment growth to check whether your corpus lasts through retirement.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How do I interpret the results?
+<div class="faq-answer">
+If the final corpus remains positive and grows, your plan is sustainable. If it decreases or becomes zero, adjustments are needed in savings, withdrawals, or investment returns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I adjust my withdrawal amount?
+<div class="faq-answer">
+Yes. Lowering withdrawals or increasing corpus can significantly improve retirement sustainability.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What rate of return should I assume?
+<div class="faq-answer">
+Use a conservative estimate, typically 6–10% depending on your portfolio, to avoid overestimating growth.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How often should I run a stress test?
+<div class="faq-answer">
+Review annually or after major market events to ensure your retirement plan remains on track.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation affect the test?
+<div class="faq-answer">
+Yes. You can manually increase withdrawals over time to account for inflation, or use linked inflation calculators for more accuracy.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I invest aggressively for higher growth?
+<div class="faq-answer">
+Balanced portfolios often work best. Aggressive investing may increase growth but also exposes you to high volatility risk.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What if I start late?
+<div class="faq-answer">
+If you start retirement savings late, you may need higher contributions or lower withdrawals to maintain sustainability.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let line;
+
+function calculate(){
+let age=parseInt(document.getElementById("age").value);
+let retire=parseInt(document.getElementById("retire").value);
+let corpus=parseFloat(document.getElementById("corpus").value);
+let withdrawal=parseFloat(document.getElementById("withdrawal").value);
+let rate=parseFloat(document.getElementById("rate").value)/100;
+
+let years=retire-age;
+let data=[];
+let val=corpus;
+
+for(let i=1;i<=years;i++){
+val = val*(1+rate) - withdrawal;
+data.push(val>0 ? val : 0);
+}
+
+document.getElementById("finalCorpus").innerText = Math.round(val).toLocaleString('en-IN');
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Corpus Over Years",data:data,fill:false,borderColor:"#2563eb"}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe Withdrawal Rate Calculator | WeDA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* RESULT */
+.result-box{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.green{
+color:var(--green);
+font-size:26px;
+font-weight:bold;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.6;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="sequence-of-return-risk.html">Sequence of Return Risk</a>
+<a href="retirement-stress-test.html">Retirement Stress Test</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="retirement-system.html">Retirement System</a> >
+Safe Withdrawal Rate
+</div>
+
+<div class="container">
+
+<h1>Safe Withdrawal Rate Calculator</h1>
+<p>Determine a safe percentage of your retirement corpus that can be withdrawn annually without depleting your funds too early. This calculator considers your retirement corpus, expected returns, and retirement horizon to suggest an optimal withdrawal rate for sustainable financial independence.</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Retirement Corpus (₹)</label>
+<input id="corpus" type="number" value="5000000">
+
+<label>Expected Annual Return (%)</label>
+<input id="rate" type="number" value="8">
+
+<label>Retirement Duration (Years)</label>
+<input id="years" type="number" value="25">
+
+<button onclick="calculate()">Calculate</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Suggested Safe Withdrawal Amount</p>
+<div class="green">₹ <span id="total"></span></div>
+</div>
+
+<!-- CHART -->
+<div class="card">
+<canvas id="lineChart"></canvas>
+</div>
+
+<!-- CONTENT -->
+<div class="card">
+<h2>Understanding Safe Withdrawal Rate</h2>
+<p>
+Safe withdrawal rate (SWR) is a critical concept in retirement planning. It helps you determine the amount you can withdraw annually from your retirement savings without running out of money, even accounting for inflation and market fluctuations. By calculating SWR, you can confidently plan for decades of financial independence.
+</p>
+</div>
+
+<div class="card">
+<h2>Why It Matters</h2>
+<p>
+Following a proper SWR prevents overspending early in retirement, protecting against market volatility and unexpected expenses. It is a tool to balance your desired lifestyle with financial longevity, ensuring that your investments support your life goals consistently.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Tools</h2>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+<a href="sequence-of-return-risk.html">Sequence of Return Risk</a>
+<a href="retirement-stress-test.html">Retirement Stress Test</a>
+<a href="epf-vs-ppf.html">EPF vs PPF</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="investment-knowledge.html">Investment Knowledge</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="asset-allocation-calculator.html">Asset Allocation Calculator</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="financial-health-score.html">Financial Health Score</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is a safe withdrawal rate?
+<div class="faq-answer">
+The safe withdrawal rate is the maximum percentage of your retirement corpus you can withdraw annually without running out of money too soon.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is the SWR calculated?
+<div class="faq-answer">
+SWR is calculated based on your corpus, expected investment returns, and retirement duration to ensure sustainability.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can SWR vary each year?
+<div class="faq-answer">
+Yes. Adjustments may be needed based on market performance, inflation, or unexpected expenses.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation affect my SWR?
+<div class="faq-answer">
+Inflation reduces the purchasing power of withdrawals. Calculating SWR with inflation in mind ensures your lifestyle is maintained.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I withdraw a fixed amount or a percentage?
+<div class="faq-answer">
+Withdrawing a fixed percentage of the corpus each year is usually safer than a fixed amount, as it adjusts for corpus growth or market downturns.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I increase my withdrawal if my investments grow faster?
+<div class="faq-answer">
+Yes, but it is recommended to follow conservative adjustments to avoid depleting funds prematurely.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is SWR the same for everyone?
+<div class="faq-answer">
+No. SWR depends on retirement age, corpus, expected returns, and lifestyle. Personalized calculations are essential.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens if I withdraw more than the safe rate?
+<div class="faq-answer">
+Withdrawing more than the recommended rate increases the risk of exhausting your funds early, especially during market downturns.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+history.scrollRestoration="manual";
+window.onpageshow=function(){window.scrollTo(0,0);};
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+let line;
+
+function calculate(){
+let corpus=document.getElementById("corpus").value;
+let rate=document.getElementById("rate").value/100;
+let years=document.getElementById("years").value;
+
+let safeWithdrawal=(corpus*rate).toFixed(0);
+document.getElementById("total").innerText=parseInt(safeWithdrawal).toLocaleString('en-IN');
+
+let data=[];
+let val=corpus;
+
+for(let i=1;i<=years;i++){
+val=(val-safeWithdrawal)*(1+rate);
+data.push(val);
+}
+
+if(line) line.destroy();
+line=new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Corpus Value Over Time",data:data}]}
+});
+}
+
+calculate();
+</script>
+
+</body>
+</html>

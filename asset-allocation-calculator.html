@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Allocation Calculator | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* H1 STRAP */
+.h1-strap{
+background:var(--primary);
+color:#fff;
+padding:14px 20px;
+font-size:22px;
+font-weight:bold;
+}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input, select{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:20px;font-weight:bold;line-height:1.8;text-align:left;}
+
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="portfolio-system.html">Portfolio System</a> >
+Asset Allocation Calculator
+</div>
+
+<!-- H1 -->
+<div class="h1-strap">
+Asset Allocation Calculator
+</div>
+
+<div class="container">
+
+<p>
+The Asset Allocation Calculator helps you divide your investments across different asset classes such as equity, debt, gold, and cash. Proper allocation is one of the most important principles in investing because it balances risk and return according to your financial goals and comfort level.
+</p>
+
+<!-- INPUT -->
+<div class="card">
+<label>Investment Amount (₹)</label>
+<input id="amount" type="number" value="100000">
+
+<label>Risk Level</label>
+<select id="risk">
+<option value="conservative">Conservative</option>
+<option value="moderate">Moderate</option>
+<option value="aggressive">Aggressive</option>
+</select>
+
+<button onclick="calculateAllocation()">Calculate Allocation</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Suggested Allocation</p>
+<div class="green" id="result"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="card section">
+<h2>Why Asset Allocation Matters</h2>
+<p>
+Asset allocation determines how your portfolio behaves during market ups and downs. A well-diversified portfolio reduces risk and ensures smoother returns over time. Instead of relying on a single asset class, spreading your investments allows you to capture growth while protecting downside risk.
+</p>
+</div>
+
+<div class="card section">
+<h2>Understanding Risk Profiles</h2>
+<p>
+A conservative investor prioritizes safety and stable returns, while a moderate investor balances growth and safety. An aggressive investor focuses on long-term wealth creation and accepts short-term volatility. Choosing the right allocation depends on your financial goals, age, and risk tolerance.
+</p>
+</div>
+
+<div class="card section">
+<h2>Long-Term Strategy</h2>
+<p>
+Asset allocation is not a one-time decision. It should evolve with your life stage. Younger investors may prefer aggressive allocation, while those nearing retirement often shift towards safer assets. Regular rebalancing ensures your portfolio stays aligned with your goals.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculators</h2>
+<a href="portfolio-return-calculator.html">Portfolio Return Calculator</a>
+<a href="portfolio-growth-calculator.html">Portfolio Growth Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+<a href="absolute-return-calculator.html">Absolute Return Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+<a href="investment-system.html">Investment System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="net-worth-calculator.html">Net Worth Calculator</a>
+<a href="emergency-fund-calculator.html">Emergency Fund Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is asset allocation?
+<div class="faq-answer">It is the process of dividing investments across different asset classes to manage risk and returns effectively.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is diversification important?
+<div class="faq-answer">Diversification reduces risk by spreading investments across different assets that perform differently in various market conditions.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is the best allocation?
+<div class="faq-answer">There is no one-size-fits-all allocation. It depends on your goals, age, and risk tolerance.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Should I change allocation over time?
+<div class="faq-answer">Yes, as your financial goals and risk appetite change, your allocation should also be adjusted.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does asset allocation guarantee returns?
+<div class="faq-answer">No, but it helps optimize returns while managing risk effectively.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How often should I rebalance?
+<div class="faq-answer">At least once a year or whenever your portfolio deviates significantly from your target allocation.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is gold necessary in a portfolio?
+<div class="faq-answer">Gold acts as a hedge against inflation and market volatility, making it useful for diversification.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can beginners use this strategy?
+<div class="faq-answer">Yes, asset allocation is one of the simplest and most effective strategies for beginners.</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculateAllocation(){
+let amount=parseFloat(document.getElementById("amount").value);
+let risk=document.getElementById("risk").value;
+let equity,debt,gold,cash;
+
+if(risk==="conservative"){
+equity=Math.round(amount*0.3);
+debt=Math.round(amount*0.5);
+gold=Math.round(amount*0.15);
+cash=Math.round(amount*0.05);
+}else if(risk==="moderate"){
+equity=Math.round(amount*0.5);
+debt=Math.round(amount*0.3);
+gold=Math.round(amount*0.15);
+cash=Math.round(amount*0.05);
+}else{
+equity=Math.round(amount*0.7);
+debt=Math.round(amount*0.15);
+gold=Math.round(amount*0.10);
+cash=Math.round(amount*0.05);
+}
+
+document.getElementById("result").innerHTML=
+`Equity: ₹${equity.toLocaleString()}<br>
+Debt: ₹${debt.toLocaleString()}<br>
+Gold/Silver: ₹${gold.toLocaleString()}<br>
+Cash: ₹${cash.toLocaleString()}`;
+}
+
+calculateAllocation();
+</script>
+
+</body>
+</html>

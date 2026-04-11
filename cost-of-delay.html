@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost of Delay | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--green:#16a34a;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{display:block;margin:15px 0;text-decoration:none;color:#111;}
+.close-btn{font-size:24px;cursor:pointer;}
+
+/* BREADCRUMB */
+.breadcrumb{padding:10px 20px;font-size:13px;}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+
+/* BLUE STRAP */
+.page-title{
+background:var(--primary);
+color:white;
+padding:14px 20px;
+font-size:22px;
+font-weight:bold;
+margin:0;
+}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;}
+
+input{
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ccc;
+}
+
+button{
+width:100%;padding:12px;background:var(--primary);
+color:white;border:none;border-radius:8px;cursor:pointer;
+}
+
+.result-box{
+border:1px solid #e5e7eb;border-radius:12px;
+padding:20px;text-align:center;
+}
+
+.green{color:var(--green);font-size:26px;font-weight:bold;}
+
+.section p{color:#374151;line-height:1.7;}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;border-radius:10px;
+margin-bottom:10px;padding:12px;cursor:pointer;
+}
+.faq-answer{display:none;margin-top:8px;color:#555;font-size:14px;}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{min-width:180px;}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:900;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div class="close-btn" onclick="closeDrawer()">✕</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="rule-of-72.html">Rule of 72</a>
+<a href="rule-of-114.html">Rule of 114</a>
+<a href="rule-of-144.html">Rule of 144</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="investment-knowledge.html">Investment Knowledge</a> >
+Cost of Delay
+</div>
+
+<h1 class="page-title">Cost of Delay</h1>
+
+<div class="container">
+
+<!-- INPUT -->
+<div class="card">
+<label>Expected Gain per Month (₹)</label>
+<input id="gain" type="number" value="5000">
+
+<label>Delay in Months</label>
+<input id="delay" type="number" value="6">
+
+<button onclick="calculateCost()">Calculate Cost of Delay</button>
+</div>
+
+<!-- RESULT -->
+<div class="card result-box">
+<p>Your Cost of Delay</p>
+<div class="green"><span id="result">₹30,000</span></div>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="card section">
+<p>
+The cost of delay is one of the most underrated but powerful financial concepts. It represents the amount of money you lose by simply postponing a decision. Whether it is delaying an investment, postponing a savings plan, or waiting to start a financial goal, every delay has a measurable cost attached to it.
+</p>
+
+<p>
+Most people underestimate how damaging small delays can be. A delay of just a few months may not feel significant, but when combined with compounding and missed opportunities, it can lead to a substantial financial gap over time. This concept is especially important in investing, where time plays a critical role in wealth creation.
+</p>
+
+<p>
+Understanding the cost of delay helps shift your mindset from “I will start later” to “starting now has real value.” It forces clarity in decision-making and highlights the importance of acting early. The earlier you begin, the more you benefit from growth, compounding, and opportunity capture.
+</p>
+
+<p>
+This tool simplifies the concept by calculating the direct financial impact of your delay based on expected monthly gains. While this is a simplified view, it builds strong awareness and discipline, which are essential for long-term financial success.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related Calculations</h2>
+<a href="rule-of-72.html">Rule of 72</a>
+<a href="rule-of-114.html">Rule of 114</a>
+<a href="rule-of-144.html">Rule of 144</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="xirr-calculator.html">XIRR Calculator</a>
+<a href="irr-calculator.html">IRR Calculator</a>
+</div>
+
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="investment-knowledge.html">Investment Knowledge</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+<a href="savings-rate-calculator.html">Savings Rate Calculator</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="retirement-calculator.html">Retirement Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What is Cost of Delay?
+<div class="faq-answer">It measures the financial loss caused by postponing a decision or investment.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Why is it important?
+<div class="faq-answer">It highlights missed opportunities and encourages faster decision-making.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How is it calculated?
+<div class="faq-answer">Multiply expected monthly gain by the number of delayed months.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does it affect long-term wealth?
+<div class="faq-answer">Yes, delays reduce compounding benefits significantly.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is it useful for investing?
+<div class="faq-answer">Extremely useful, especially for long-term investment planning.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can small delays matter?
+<div class="faq-answer">Yes, even small delays can create large financial gaps over time.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Does inflation impact delay?
+<div class="faq-answer">Yes, inflation increases the real cost of delaying decisions.</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How to reduce cost of delay?
+<div class="faq-answer">Start early, automate investments, and avoid procrastination.</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+
+function calculateCost(){
+let gain=parseFloat(document.getElementById("gain").value);
+let delay=parseFloat(document.getElementById("delay").value);
+let cost=gain*delay;
+document.getElementById("result").innerText="₹"+cost.toLocaleString();
+}
+
+calculateCost();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeDA | Structured Thinking. Scalable Systems.</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(4px);
+display:none;
+z-index:5;
+}
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100%;
+background:#fff;
+padding:20px;
+transition:0.3s;
+z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* HERO */
+.hero{
+padding:80px 20px;
+text-align:center;
+background:linear-gradient(to right, #2563eb, #1d4ed8);
+color:white;
+}
+
+.hero h1{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.hero p{
+max-width:600px;
+margin:auto;
+opacity:0.9;
+}
+
+/* SECTION */
+.section{
+padding:30px 20px;
+max-width:900px;
+margin:auto;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+text-decoration:none;
+color:var(--text);
+display:block;
+transition:0.3s;
+position:relative;
+}
+
+.card:hover{
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+transform:translateY(-3px);
+}
+
+/* TAG */
+.tag{
+position:absolute;
+top:10px;
+right:10px;
+font-size:11px;
+background:#e5e7eb;
+padding:4px 8px;
+border-radius:6px;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+
+<a href="finance.html">Finance</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions </a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+<h1>WeDA</h1>
+<h1>Structured Thinking<br>Scalable Systems</h1>
+<p>
+WeDA is a multi-sector digital platform designed to simplify decision-making through interconnected tools, calculators, and structured knowledge systems.
+</p>
+</div>
+
+<!-- SECTORS -->
+<div class="section">
+
+<h2>Explore Systems</h2>
+
+<div class="grid">
+
+<a href="finance.html" class="card">
+<h3>Finance</h3>
+<p>Investment, loans, and financial planning tools.</p>
+</a>
+
+<div class="card">
+<span class="tag">Coming Soon</span>
+<h3>Health</h3>
+<p>Health metrics and structured wellness insights.</p>
+</div>
+
+<div class="card">
+<span class="tag">Coming Soon</span>
+<h3>Education</h3>
+<p>Learning systems and planning tools.</p>
+</div>
+
+<div class="card">
+<span class="tag">Coming Soon</span>
+<h3>Utilities</h3>
+<p>Everyday tools for quick decisions.</p>
+</div>
+
+<a href="about.html" class="card">
+<h3>About</h3>
+<p>About the platform, its structure, and vision.</p>
+</a>
+
+<a href="contact.html" class="card">
+<h3>Contact</h3>
+<p>Contact for any query or to know more.</p>
+</a>
+
+<a href="privacy-policy.html" class="card">
+<h3>Privacy Policy</h3>
+<p>Privacy Policy comprising every aspects.</p>
+</a>
+
+<a href="terms.html" class="card">
+<h3>Terms and Conditions</h3>
+<p>Regulations with the usage of the platform.</p>
+</a>
+
+<a href="disclaimer.html" class="card">
+<h3>Disclaimer</h3>
+<p>Disclaimer of available content.</p></a>
+</div>
+
+</div>
+
+<!-- ABOUT PLATFORM -->
+<div class="section">
+<h2>Why WeDA?</h2>
+<p>
+WeDA is built as a system-based platform, not just a collection of tools. Each page is interconnected to guide users through a structured journey — from understanding concepts to making informed financial and life decisions.
+</p>
+
+<p>
+Unlike scattered calculators or blogs, WeDA focuses on clarity, consistency, and scalability, ensuring that every tool and guide works as part of a larger decision-making ecosystem.
+</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+
+<a href="finance.html">Finance</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions </a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function scrollTop(){
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+</script>
+
+</body>
+</html>

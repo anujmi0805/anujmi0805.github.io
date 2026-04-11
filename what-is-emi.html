@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is EMI | WeDA</title>
+
+<style>
+:root{
+--primary:#2563eb;
+--bg:#ffffff;
+--text:#111827;
+--card:#f8fafc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{color:var(--primary);font-size:22px;font-weight:bold;}
+.tagline{font-size:12px;color:gray;}
+.menu-btn{font-size:26px;cursor:pointer;}
+
+/* DRAWER */
+.overlay{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);
+display:none;z-index:5;
+}
+
+.drawer{
+position:fixed;top:0;right:-100%;width:70%;height:100%;
+background:#fff;padding:20px;transition:0.3s;z-index:10;
+}
+
+.drawer a{
+display:block;
+margin:15px 0;
+text-decoration:none;
+color:#111;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+padding:10px 20px;
+font-size:13px;
+}
+
+.breadcrumb a{
+color:var(--primary);
+text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+/* LINKS */
+.link-box a{
+display:block;
+padding:10px 0;
+color:var(--primary);
+text-decoration:none;
+}
+
+/* FAQ */
+.faq-box{
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+padding:12px;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+margin-top:8px;
+color:#555;
+line-height:1.7;
+}
+
+/* FOOTER */
+.footer{
+background:#111827;
+color:white;
+padding:30px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-column{
+min-width:180px;
+}
+
+.footer a{
+display:block;
+color:#9ca3af;
+margin:6px 0;
+text-decoration:none;
+}
+
+.brand{font-size:20px;font-weight:bold;}
+
+.bottom{
+text-align:center;
+padding:10px;
+background:#111827;
+color:#9ca3af;
+}
+
+/* TOP BUTTON */
+.top-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<div class="header">
+<div>
+<div class="logo">WeDA</div>
+<div class="tagline">beyond the thought...</div>
+</div>
+<div class="menu-btn" onclick="openDrawer()">☰</div>
+</div>
+
+<!-- DRAWER -->
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+
+<div id="drawer" class="drawer">
+<div onclick="closeDrawer()">✕ Close</div>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+<a href="index.html">Home</a> >
+<a href="finance.html">Finance</a> >
+<a href="loan-system.html">Loan System</a> >
+What is EMI
+</div>
+
+<div class="container">
+
+<h1>What is EMI?</h1>
+<p>
+EMI, or Equated Monthly Installment, is a fixed monthly payment made to repay a loan. It allows individuals to manage borrowing by dividing the total loan and interest into structured monthly payments over a set tenure, ensuring predictable cash flow and financial stability.
+</p>
+
+<div class="card">
+<h2>How EMI Works</h2>
+<p>
+Every EMI is a combination of principal and interest. Initially, a larger portion of your payment goes towards interest, while the principal reduces slowly. As months progress, the interest portion decreases and the principal repayment accelerates, helping you gradually own the asset while repaying the loan.
+</p>
+</div>
+
+<div class="card">
+<h2>Why EMI is Important</h2>
+<p>
+EMI simplifies managing large expenses such as homes, vehicles, or education. Instead of paying a lump sum upfront, EMIs allow consistent, manageable payments while keeping your finances liquid for other needs.
+</p>
+</div>
+
+<div class="card">
+<h2>How EMI is Calculated</h2>
+<p>
+The EMI is calculated based on three factors: the principal amount, the annual interest rate, and the loan tenure. Larger loans or higher interest rates increase monthly EMI, while longer tenures reduce the monthly burden but may increase total interest paid.
+</p>
+</div>
+
+<div class="card">
+<h2>Example</h2>
+<p>
+For example, a ₹5,00,000 loan at 10% annual interest over 5 years results in a fixed EMI. Initially, most of the EMI covers interest, but as the loan progresses, more of the payment goes toward the principal, helping you own the asset faster toward the end.
+</p>
+</div>
+
+<div class="card">
+<h2>Benefits of EMI</h2>
+<p>
+EMIs make budgeting easier, provide predictable monthly expenses, allow access to large assets without upfront payment, and encourage disciplined financial planning over the loan tenure.
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="card link-box">
+<h2>Related</h2>
+<a href="emi-calculator.html">EMI Calculator</a>
+<a href="loan-eligibility-calculator.html">Loan Eligibility Calculator</a>
+<a href="loan-prepayment-calculator.html">Loan Prepayment Calculator</a>
+<a href="loan-comparison-calculator.html">Loan Comparison Calculator</a>
+<a href="loan-system.html">Loan System</a>
+<a href="cagr-calculator.html">CAGR Calculator</a>
+<a href="roi-calculator.html">ROI Calculator</a>
+</div>
+
+<!-- EXPLORE -->
+<div class="card link-box">
+<h2>Explore More</h2>
+<a href="index.html">Home</a>
+<a href="finance.html">Finance</a>
+<a href="sip-calculator.html">SIP Calculator</a>
+<a href="fd-calculator.html">FD Calculator</a>
+<a href="ppf-calculator.html">PPF Calculator</a>
+<a href="epf-calculator.html">EPF Calculator</a>
+<a href="inflation-calculator.html">Inflation Calculator</a>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+<h2>FAQs</h2>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What does EMI stand for?
+<div class="faq-answer">
+EMI stands for Equated Monthly Installment, the fixed monthly payment used to repay a loan gradually, covering both principal and interest.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is EMI fixed for the entire tenure?
+<div class="faq-answer">
+In loans with fixed interest rates, EMI remains constant. For floating interest rates, EMI can vary depending on market fluctuations.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Which component reduces first: interest or principal?
+<div class="faq-answer">
+Initially, a larger portion of the EMI covers interest. As time progresses, more of the EMI goes toward reducing the principal balance.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can I prepay my EMI?
+<div class="faq-answer">
+Yes, you can prepay either partially or fully, reducing the total interest burden and possibly shortening the loan tenure.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+How does EMI affect my credit score?
+<div class="faq-answer">
+Timely EMI payments improve your credit score, while missed payments may negatively impact it, affecting future borrowing.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Can EMI be rescheduled?
+<div class="faq-answer">
+Many lenders allow changing your EMI amount or tenure in case of financial emergencies, helping maintain flexibility in repayment.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+Is paying EMI better than lump-sum payment?
+<div class="faq-answer">
+EMI allows better financial planning and liquidity compared to paying the full loan upfront, especially for high-value assets.
+</div>
+</div>
+
+<div class="faq-box" onclick="toggleFAQ(this)">
+What happens if I miss an EMI?
+<div class="faq-answer">
+Missing an EMI may incur penalties and interest, and repeated defaults can negatively affect your creditworthiness.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+<div>
+<div class="brand">WeDA</div>
+<div>beyond the thought...</div>
+</div>
+
+<div>
+<div class="footer-column">
+<h3>Explore</h3>
+<a href="index.html">WeDA's Home</a>
+<a href="finance.html">Finance</a>
+<a href="investment-system.html">Investment System</a>
+<a href="loan-system.html">Loan System</a>
+<a href="returns-system.html">Returns System</a>
+<a href="inflation-system.html">Inflation System</a>
+<a href="portfolio-system.html">Portfolio System</a>
+<a href="tax-savings-system.html">Tax & Savings System</a>
+<a href="retirement-system.html">Retirement System</a>
+<a href="financial-health-system.html">Financial Health System</a>
+</div>
+
+<div class="footer-column">
+<h3>Company</h3>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms and Conditions</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+© WeDA • beyond the thought...
+</div>
+
+<a href="#top" class="top-btn">⬆</a>
+
+<script>
+function openDrawer(){
+document.getElementById("drawer").style.right="0";
+document.getElementById("overlay").style.display="block";
+}
+
+function closeDrawer(){
+document.getElementById("drawer").style.right="-100%";
+document.getElementById("overlay").style.display="none";
+}
+
+function toggleFAQ(el){
+let ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
+</script>
+
+</body>
+</html>
